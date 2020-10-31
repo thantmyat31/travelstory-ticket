@@ -1,4 +1,4 @@
-# MERN-stack-boiler-plate"
+# MERN-stack-boiler-plate
 
 - [x] create package.json
 - [x] install dependencies
