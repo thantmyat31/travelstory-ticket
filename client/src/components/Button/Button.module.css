@@ -1,0 +1,15 @@
+.button {
+    padding: 10px 40px;
+    border: 1px solid #ff6600;
+    background: #ff6600;
+    color: #fff;
+    text-transform: uppercase;
+    transition-duration: 0.4s;
+    transition-timing-function: ease-in-out;
+}
+
+.button:hover {
+    border: 1px solid #ff6600;
+    background: #fff;
+    color: #ff6600;
+}
