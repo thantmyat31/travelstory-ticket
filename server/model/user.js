@@ -26,6 +26,8 @@ const userSchema = mongoose.Schema({
     tokenExp: {
         type: Number
     }
+},{
+    timestamps: true
 });
 
 const User = mongoose.model('User', userSchema);

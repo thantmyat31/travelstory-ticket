@@ -1,11 +1,23 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import { useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-const HomePage = () => {
+const HomePage = ({ currentUser }) => {
+    const history = useHistory();
+
+    useEffect(() => {
+        if(!currentUser) history.push("/login");
+    }, [currentUser, history]);
+
     return ( 
-        <div>
-            <h3>Home Page</h3>
+        <div className="page">
+            <h1>Home Page</h1>
         </div>
      );
 }
+
+const mapStateToProps = state => ({
+    currentUser: state.user.currentUser
+})
  
-export default HomePage;
+export default connect(mapStateToProps)(HomePage);

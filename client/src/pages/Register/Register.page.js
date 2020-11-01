@@ -8,6 +8,7 @@ import { saveUserInState } from './../../redux/user/user.action';
 import Input from '../../components/Input/Input';
 import Button from './../../components/Button/Button';
 import styles from './Register.module.css';
+import ErrorNotice from '../../components/ErrorNotice/ErrorNotice';
 
 
 const RegisterPage = ({ saveUserInState }) => {
@@ -15,30 +16,45 @@ const RegisterPage = ({ saveUserInState }) => {
     const [ email, setEmail ] = useState();
     const [ password, setPassword ] = useState();
     const [ confirmPassword, setConfirmPassword ] = useState();
+    const [ error, setError ] = useState();
     const history = useHistory();
 
     const handleOnSubmit = async (event) => {
         event.preventDefault();
-        const newUser = { displayName, email, password, confirmPassword };
-        
-        // New user register
-        await newUserRegister(newUser);
-        
-        // User login
-        const loginResponse = await userLogin(email, password);
-        const { token, user } = loginResponse.data;
-        
-        // Save user in state
-        saveUserInState(token, user);
+       
+        try {
+            const newUser = { displayName, email, password, confirmPassword };
+            
+            // New user register
+            const registerResponse = await newUserRegister(newUser);
+            if(registerResponse) {
+                console.log(registerResponse)
+                throw new Error(registerResponse);
+            }
+            
+            // User login
+            const loginResponse = await userLogin(email, password);
+            
+            const { token, user } = loginResponse.data;
+            
+            // Save user in state
+            saveUserInState(token, user);
 
-        // Save token in localStorage
-        localStorage.setItem("auth-token", token);
-        history.push("/");
+            // Save token in localStorage
+            localStorage.setItem("auth-token", token);
+            history.push("/"); 
+
+        } catch (error) {
+            setError(error.message);
+        }
     }
 
 	return (
 		<div className={styles.container}>
-			<h1>Register</h1>
+            <h1>Register</h1>
+            {
+                error && <ErrorNotice error={error} clearError={() => setError(undefined)} />
+            }
             <form onSubmit={handleOnSubmit}>
                 <Input 
                     label="display name"
@@ -48,7 +64,7 @@ const RegisterPage = ({ saveUserInState }) => {
                 />
                 <Input 
                     name="email" 
-                    type="text" 
+                    type="email" 
                     onChange={(e) => setEmail(e.target.value)} 
                     required={true} 
                     autoComplete="email"

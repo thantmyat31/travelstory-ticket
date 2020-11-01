@@ -20,3 +20,9 @@ code {
 a {
   text-decoration: none;
 }
+
+.page {
+  max-width: 870px;
+  padding:0 15px;
+  margin:40px auto;
+}
