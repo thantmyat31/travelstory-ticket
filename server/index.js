@@ -26,6 +26,10 @@ app.use(express.json());
 app.use(cors());
 app.use('/users', require('./routes/userRouter'));
 
+if(process.env.NODE_ENV === 'production') {
+    app.use(express.static('client/build'));
+}
+
 
 app.use((err, req, res, next) => {
     if(err.message) {
