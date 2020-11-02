@@ -3,13 +3,15 @@ import { Route, Switch } from 'react-router-dom';
 
 import axios from 'axios';
 
-import HomePage from './pages/Home/Home.page';
+import LandingPage from './pages/Landing/LandingPage';
 import LoginPage from './pages/Login/Login.page';
-import Header from './components/Header/Header';
 import RegisterPage from './pages/Register/Register.page';
+import Header from './components/Header/Header';
 
 import { connect } from 'react-redux';
 import { saveUserInState } from './redux/user/user.action';
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
+import NotFoundPage from './pages/NotFound/NotFound.page';
 
 const App = ({ saveUserInState }) => {
 
@@ -47,7 +49,12 @@ const App = ({ saveUserInState }) => {
 			<Switch>
 				<Route path="/login" component={LoginPage} />
 				<Route path="/register" component={RegisterPage} />
-				<Route exact path="/" component={HomePage} />
+				<ProtectedRoute 
+					exact
+					path="/"
+					component={LandingPage}
+				/>
+				<Route path="*" component={NotFoundPage} />
 			</Switch>
 		</div>
 	);

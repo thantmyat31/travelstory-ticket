@@ -1,15 +1,19 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import styles from './Header.module.css';
 import { connect } from 'react-redux';
 import { userLogout } from '../../redux/user/user.action';
 import Button from '../Button/Button';
+import Auth from '../Auth/Auth';
 
 const Header = ({ currentUser, userLogout }) => {
-    const logout = () => {
-        userLogout();
-        localStorage.setItem('auth-token', '');
+	const history = useHistory();
+
+	const logout = () => {
+		userLogout();
+		localStorage.setItem('auth-token', '');
+		history.push("/login");
     }
 	return (
 		<header className={styles.header}>
@@ -27,7 +31,7 @@ const Header = ({ currentUser, userLogout }) => {
 				</div>
 			) : (
 				<div className={styles.navLinks}>
-                    <Button title="Logout" onClick={logout} />
+                    <Button title="Logout" onClick={() => Auth.isLogout(logout)} />
 				</div>
 			)}
 		</header>

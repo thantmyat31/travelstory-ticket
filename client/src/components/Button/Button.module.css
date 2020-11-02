@@ -13,3 +13,7 @@
     background: #fff;
     color: #ff6600;
 }
+
+.button:focus {
+    outline: none;
+}

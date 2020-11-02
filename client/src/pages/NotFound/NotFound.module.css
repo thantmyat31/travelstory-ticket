@@ -1,0 +1,19 @@
+.notfound {
+    height:50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background:#f6f6f6;
+}
+
+.notfound h1 {
+    font-size: 5rem;
+    letter-spacing: 0.5rem;
+    color:#a6a6a6;
+}
+
+.notfound h3 {
+    color:#ff6600;
+}
+
