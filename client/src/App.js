@@ -1,17 +1,18 @@
 import React, { useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import axios from 'axios';
+import { connect } from 'react-redux';
+import { saveUserInState } from './redux/user/user.action';
 
 import LandingPage from './pages/Landing/LandingPage';
 import LoginPage from './pages/Login/Login.page';
 import RegisterPage from './pages/Register/Register.page';
-import Header from './components/Header/Header';
-
-import { connect } from 'react-redux';
-import { saveUserInState } from './redux/user/user.action';
-import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import NotFoundPage from './pages/NotFound/NotFound.page';
+
+import Header from './components/Header/Header';
+import AuthRoute from './components/AuthRoute/AuthRoute';
+
+import axios from 'axios';
 
 const App = ({ saveUserInState }) => {
 
@@ -49,7 +50,7 @@ const App = ({ saveUserInState }) => {
 			<Switch>
 				<Route path="/login" component={LoginPage} />
 				<Route path="/register" component={RegisterPage} />
-				<ProtectedRoute 
+				<AuthRoute 
 					exact
 					path="/"
 					component={LandingPage}

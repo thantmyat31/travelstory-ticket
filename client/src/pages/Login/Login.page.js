@@ -8,7 +8,6 @@ import { saveUserInState } from './../../redux/user/user.action';
 import Input from '../../components/Input/Input';
 import Button from './../../components/Button/Button';
 import ErrorNotice from '../../components/ErrorNotice/ErrorNotice';
-import Auth from '../../components/Auth/Auth';
 import styles from './Login.module.css';
 
 const LoginPage = ({ saveUserInState }) => {
@@ -33,9 +32,7 @@ const LoginPage = ({ saveUserInState }) => {
 
 			// Save token in localStorage
 			localStorage.setItem("auth-token", token);
-
-			// Save to Auth
-			Auth.isLogin(() => history.push("/"));
+			history.push("/");
 			
 		} catch (error) {
 			setError(error.message);

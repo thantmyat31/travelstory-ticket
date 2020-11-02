@@ -5,7 +5,6 @@ import styles from './Header.module.css';
 import { connect } from 'react-redux';
 import { userLogout } from '../../redux/user/user.action';
 import Button from '../Button/Button';
-import Auth from '../Auth/Auth';
 
 const Header = ({ currentUser, userLogout }) => {
 	const history = useHistory();
@@ -31,7 +30,7 @@ const Header = ({ currentUser, userLogout }) => {
 				</div>
 			) : (
 				<div className={styles.navLinks}>
-                    <Button title="Logout" onClick={() => Auth.isLogout(logout)} />
+                    <Button title="Logout" onClick={logout} />
 				</div>
 			)}
 		</header>
