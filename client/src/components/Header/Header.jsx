@@ -7,7 +7,6 @@ import styles from './Header.module.css';
 import cx from 'classnames';
 
 import {FaPaperPlane} from 'react-icons/fa';
-import {RiVideoAddFill} from 'react-icons/ri';
 import {BiMenuAltRight} from 'react-icons/bi';
 import UserAvatar from '../UserAvatar/UserAvatar';
 
