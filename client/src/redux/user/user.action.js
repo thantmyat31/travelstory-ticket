@@ -15,7 +15,7 @@ export const userLoginAction = (credentials) => {
         })
         .catch(error => {
             let errorPayload = '';
-            if(error.response.data.message) errorPayload = error.response.data.message;
+            if(error?.response?.data?.message) errorPayload = error.response.data.message;
             else errorPayload = 'Registratio failed. Try again later.';
             
             dispatch({ type: userActionTypes.USER_LOGIN_FAILURE, payload: errorPayload })
@@ -37,7 +37,7 @@ export const userRegisterAction = (credentials) => {
         })
         .catch(error => {
             let errorPayload = '';
-            if(error.response.data.message) errorPayload = error.response.data.message;
+            if(error?.response?.data?.message) errorPayload = error.response.data.message;
             else errorPayload = 'Registratio failed. Try again later.';
             
             dispatch({ type: userActionTypes.USER_REGISTER_FAILURE, payload: errorPayload });
