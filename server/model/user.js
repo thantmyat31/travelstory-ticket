@@ -17,14 +17,11 @@ const userSchema = mongoose.Schema({
         required: true
     },
     role: {
-        type:Number,
-        default: 0
+        type:String,
+        default: 'subscriber'
     },
     token: {
         type: String
-    },
-    tokenExp: {
-        type: Number
     }
 },{
     timestamps: true

@@ -4,11 +4,9 @@ const cors = require('cors');
 
 require('dotenv').config();
 
-const { User } = require('./model/user');
-
 const mongodbUrl = process.env.MONGODB_URI;
 const app = express();
-const PORT = process.env.PORT || 2020;
+const PORT = process.env.PORT || 8000;
 
 // Database connection
 mongoose
@@ -24,7 +22,7 @@ mongoose
 // Middlewares
 app.use(express.json());
 app.use(cors());
-app.use('/users', require('./routes/userRouter'));
+app.use('/api/user', require('./routes/userRouter'));
 
 if(process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'));

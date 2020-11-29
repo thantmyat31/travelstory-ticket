@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const User = require('./../model/user');
 
 const auth = (req, res, next) => {
     try {
@@ -20,7 +19,7 @@ const auth = (req, res, next) => {
         next();
     } catch (error) {
         res.status(500).json({
-            error: error.message
+            message: 'Authentication failed. Try again later.'
         })
     }
 

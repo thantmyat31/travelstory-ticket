@@ -1,25 +1,43 @@
-import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { userLogoutAction } from './../../redux/user/user.action';
 
 import styles from './Header.module.css';
-import { connect } from 'react-redux';
-import { userLogout } from '../../redux/user/user.action';
-import Button from '../Button/Button';
+import cx from 'classnames';
 
-const Header = ({ currentUser, userLogout }) => {
-	const history = useHistory();
+import {FaPaperPlane} from 'react-icons/fa';
+import {RiVideoAddFill} from 'react-icons/ri';
+import {BiMenuAltRight} from 'react-icons/bi';
+import UserAvatar from '../UserAvatar/UserAvatar';
+
+const Header = () => {
+	const [ isMenuOpen, setIsMenuOpen ] = useState(false);
+	const [ isDrop, setIsDrop ] = useState(false);
+	const { isAuth, user } = useSelector(state => state.user);
+	const dispatch = useDispatch();
 
 	const logout = () => {
-		userLogout();
-		localStorage.setItem('auth-token', '');
-		history.push("/login");
+		dispatch(userLogoutAction());
     }
+	const handleOnMenuClose = (event) => {
+		event.stopPropagation();
+		setIsMenuOpen(!isMenuOpen);
+	}
+
 	return (
 		<header className={styles.header}>
-			<Link className={styles.logo} to="/">
-				MERN auth
-			</Link>
-			{!currentUser ? (
+			<div className={styles.logoContainer}>
+				<Link className={styles.logo} to="/">
+					<FaPaperPlane className={styles.logoIcon} /> TravelStory
+				</Link>
+				<div className={cx(styles.navLinks, styles.right)}>
+					<Link className={styles.link} to="/">
+						Home
+					</Link>
+				</div>
+			</div>
+			{!isAuth ? (
 				<div className={styles.navLinks}>
 					<Link className={styles.link} to="/login">
 						Login
@@ -30,19 +48,43 @@ const Header = ({ currentUser, userLogout }) => {
 				</div>
 			) : (
 				<div className={styles.navLinks}>
-                    <Button title="Logout" onClick={logout} />
+					<span className={styles.userInfo} onClick={() => setIsDrop(!isDrop)}>
+						<UserAvatar user={user} style={{ cursor: "pointer" }} />
+						{isDrop && <div className={styles.dropdown}>
+							<p className={styles.link} onClick={logout}>
+								Logout
+							</p>
+						</div>}
+					</span>
 				</div>
 			)}
+			<div className={styles.menuContainer} onClick={handleOnMenuClose}>
+				<BiMenuAltRight className={styles.menu} onClick={handleOnMenuClose} />
+				<div className={isMenuOpen ? cx(styles.menuOverlay, styles.open) :styles.menuOverlay}>
+					<Link className={styles.link} to="/">
+						Home
+					</Link>
+					{!isAuth ? (
+						<div>
+							<Link className={styles.link} to="/login">
+								Login
+							</Link>
+							<Link className={styles.link} to="/register">
+								Register
+							</Link>
+						</div>
+					) : (
+						<div>
+							<p className={styles.link} onClick={logout}>
+								Logout
+							</p>
+						</div>
+					)}
+					<span className={styles.close} onClick={handleOnMenuClose}>&times;</span>
+				</div>
+			</div>
 		</header>
 	);
 };
 
-const mapStateToProps = (state) => ({
-	currentUser: state.user.currentUser
-});
-
-const mapDispatchToProps = dispatch => ({
-    userLogout: () => dispatch(userLogout())
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default Header;
