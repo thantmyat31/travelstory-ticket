@@ -22,10 +22,14 @@ mongoose
 // Middlewares
 app.use(express.json());
 app.use(cors());
-app.use('/api/user', require('./routes/userRouter'));
+app.use('/api/user', require('./server/routes/userRouter'));
 
 if(process.env.NODE_ENV === 'production') {
-    app.use(express.static('client/build'));
+    app.use(express.static(path.join(__dirname, 'client', 'build')));
+
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
+    });
 }
 
 

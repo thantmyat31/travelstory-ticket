@@ -25,13 +25,6 @@ const LoginPage = () => {
 		}
 	}, [dispatch, error]);
 
-	// useEffect(() => {
-	// 	if(error) {
-	// 		toast.error(error);
-	// 	}
-    // }, [error]);
-	
-
     const handleOnSubmit = async (event) => {
         event.preventDefault();
 		dispatch(userLoginAction({ email, password }));
