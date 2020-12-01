@@ -1,17 +1,22 @@
 const mongoose = require('mongoose');
+const bcrypt = require("bcryptjs");
 
 const userSchema = mongoose.Schema({
     displayName: {
         type: String,
-        maxlength:50
+        minlength: 3,
+        maxlength: [30, 'Name is too long!'],
+        trim: true,
+        required: true
     },
     email: {
         type:String,
         trim:true,
-        unique: 1,
+        lowercase: true,
+        unique: true,
         required: true
     },
-    password: {
+    hashed_password: {
         type:String,
         minlength: 5,
         required: true
@@ -20,12 +25,38 @@ const userSchema = mongoose.Schema({
         type:String,
         default: 'subscriber'
     },
-    token: {
-        type: String
+    resetPasswordLink: {
+        data: String,
+        default: ''
     }
 },{
     timestamps: true
 });
+
+userSchema.virtual('password')
+    .get(function() {
+        return this._password
+    })
+    .set(function(password) {
+        this._password = password;
+        this.hashed_password = this.encryptPassword(password);
+    });
+
+userSchema.methods = {
+    authenticate: function(plainText) {
+        return bcrypt.compareSync(plainText, this.hashed_password);
+    },
+    encryptPassword: function(password) {
+        if(!password) return '';
+        try {
+            const salt = bcrypt.genSaltSync(10);
+            const hashed = bcrypt.hashSync(password, salt);
+            return hashed;
+        } catch (error) {
+            return '';
+        }
+    }
+}
 
 const User = mongoose.model('User', userSchema);
 

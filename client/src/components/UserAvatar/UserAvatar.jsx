@@ -3,10 +3,10 @@ import styles from './UserAvatar.module.css';
 
 const UserAvatar = ({ user, style }) => {
     let avatarUrl = '';
-    if(user.image) {
+    if(user?.image) {
         avatarUrl = `${process.env.REACT_APP_API}/${user.image}`;
     } else {
-        avatarUrl = `https://ui-avatars.com/api/?name=${user.displayName}&size=40&background=random`;
+        avatarUrl = `https://ui-avatars.com/api/?name=${user?.displayName}&size=40&background=random`;
     }
     
     return ( 

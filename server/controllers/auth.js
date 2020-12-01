@@ -1,6 +1,6 @@
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
 const User = require('./../model/user');
+const jwt = require('jsonwebtoken');
+const sgMail = require("@sendgrid/mail");
 
 exports.register = (req, res) => {
 
@@ -24,40 +24,85 @@ exports.register = (req, res) => {
 
     if (!displayName) displayName = email;
 
-    User.findOne({ email: email })
+    User.findOne({ email })
         .exec((error, user) => {
-            if (user) {
-                return res.status(400).json({
+            if(error) return res.status(400).json({
+                message: 'Failed to create new account. Try again later.'
+            });
+
+            if (user) return res.status(400).json({
                     message: 'An account with this email already exists.'
-                });
-            } else {
-                const salt = bcrypt.genSaltSync(10);
-                const passwordHash = bcrypt.hashSync(password, salt);
-                const newUser = new User({
-                    email: email.toLowerCase(),
-                    password: passwordHash,
-                    displayName: displayName
-                });
+            });
+            
 
-                newUser.save((error, createdUser) => {
-                    if(error || !createdUser) return res.status(400).json({
-                        message: 'Registration failed. Try again'
-                    })
+            const token = jwt.sign({ displayName, email, password }, process.env.JWT_ACCOUNT_ACTIVATION, { expiresIn: '10m' });
+            
+            sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+            const emailData = {
+            to: email,
+            from: process.env.EMAIL_FROM, 
+            subject: 'Account Activation Link',
+            html: `
+                <div style="padding:50px;">
+                    <h1 style="text-align:center;padding-bottom:15px;border-bottom:1px solid #ddd;">Just one More step.</h1>
+                    <h3>Please use the following link to activate your account.</h3>
+                    <p>${process.env.CLIENT_URL}/auth/activate/${token}</p>
+                    <hr />
+                    <p>This email may contain sensitive information</p>
+                    <p>${process.env.CLIENT_URL}</p>
+                </div>
+            `,
+            };
 
-                    const token = jwt.sign({ _id: createdUser._id }, process.env.JWT_SECRET);
-                
-                    return res.status(201).json({
-                        token: token,
-                        user: {
-                            _id: createdUser._id,
-                            email: createdUser.email,
-                            displayName: createdUser.displayName,
-                            role: createdUser.role
-                        }
+            sgMail.send(emailData)
+                .then(sent => {
+                    return res.json({
+                        message: `Email has sent to ${email}. Follow the instruction to activate your account.`
                     });
                 })
+                .catch(error => {
+                    console.log("Error occurs when sending email", error);
+                    return res.json({
+                        message: 'Error occurs when sending email.'
+                    })
+                })            
+        })  
+}
+
+exports.accountActivation = (req, res) => {
+    const { token } = req.body;
+
+    if(token) {
+        jwt.verify(token, process.env.JWT_ACCOUNT_ACTIVATION, (error, decoded) => {
+            if(error) {
+                console.log('JWT verify in account activation error', error);
+                return res.status(401).json({
+                    message: 'Expired link. Signup again.'
+                });
             }
-        })    
+
+            const { displayName, email, password } = jwt.decode(token);
+            const newUser = new User({ displayName, email, password });
+
+            newUser.save((error, createdUser) => {
+                if(error || !createdUser) return res.status(400).json({
+                    message: 'Account activation failed. Try again.'
+                })
+
+                const token = jwt.sign({ _id: createdUser._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
+                return res.status(201).json({
+                    token: token,
+                    user: {
+                        _id: createdUser._id,
+                        email: createdUser.email,
+                        displayName: createdUser.displayName,
+                        role: createdUser.role
+                    }
+                });
+            })
+        })
+    }
+
 }
 
 exports.login = (req, res) => {
@@ -77,14 +122,12 @@ exports.login = (req, res) => {
                     message: 'No account with this mail has been registered.'
                     });
                 } else {
-                    const isMatch = bcrypt.compareSync(password, user.password);
-                    
-                    if(!isMatch) {
+                    if(!user.authenticate(password)) {
                         return res.status(400).json({
                             message: 'Invalid credentials.'
                         })
                     } else {
-                        const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
+                        const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
                         return res.json({
                             token: token,
                             user: {
@@ -99,51 +142,36 @@ exports.login = (req, res) => {
             })
 }
 
-exports.deleteUser = (req, res) => {
-    User.findByIdAndDelete(req.user)
-        .exec((error, deletedUser) => {
-            if(error || !deletedUser) {
-                return res.status(500).json({
-                    message: 'User could not be deleted.'
-                })
-            } else {
-                return res.json({
-                    message: 'User was deleted successfully.'
-                })
-            }
-        })  
-}
-
-
 exports.isTokenValid = (req, res) => {
-    const token = req.header('x-auth-token');
-    if(!token) return res.json(false);
+    try {
+        const token = req.header('x-auth-token');
+        if(!token)
+            return res.status(401).json({
+                message: 'invalid'
+            });
 
-    const verified = jwt.verify(token, process.env.JWT_SECRET);
-    if(!verified) return res.json(false);
+        const verified = jwt.verify(token, process.env.JWT_SECRET);
 
-    User.findById(verified.id)
-        .exec((error, user) => {
-            if(error || !user) return res.json(false);
-            return res.json(true);
-        })
-}
+        if(!verified)
+            return res.status(401).json({
+                message: 'invalid'
+            });
 
-
-exports.getUserById = (req, res) => {
-    User.findById(req.user)
-        .exec((error, user) => {
-            if(error || !user) {
-                return res.status(400).json({
-                    message: 'User not found.'
+        User.findById(verified._id)
+            .exec((error, user) => {
+                if(error || !user) return res.status(401).json({
+                    message: 'invalid'
                 })
-            } else {
-                res.json({
-                    _id: user._id,
-                    displayName: user.displayName,
-                    email: user.email
-                });
-            }
+
+                return res.json({
+                    message: 'valid'
+                })
+            })
+        
+        
+    } catch (error) {
+        res.status(500).json({
+            message: 'invalid'
         })
-    
+    }
 }

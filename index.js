@@ -17,13 +17,14 @@ mongoose
 		useUnifiedTopology: true
 	})
 	.then(() => console.log('[MongoDB Connected]'))
-	.catch((error) => console.error("[Database Connection Established]"));
+	.catch((error) => console.error("[Database Connection Failed]"));
 
 
 // Middlewares
 app.use(express.json());
 app.use(cors());
-app.use('/api/user', require('./server/routes/userRouter'));
+app.use('/api', require('./server/routes/auth'));
+app.use('/api/user', require('./server/routes/user'));
 
 if(process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, 'client', 'build')));

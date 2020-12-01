@@ -50,6 +50,15 @@ const Header = () => {
 					<span className={styles.userInfo} onClick={() => setIsDrop(!isDrop)}>
 						<UserAvatar user={user} style={{ cursor: "pointer" }} />
 						{isDrop && <div className={styles.dropdown}>
+							{
+								user.role === 'admin' ? 
+								<Link className={styles.link} to="/auth/admin">
+									Admin
+								</Link>: 
+								<Link className={styles.link} to="/auth/dashboard">
+									Dashboard
+								</Link>
+							}
 							<p className={styles.link} onClick={logout}>
 								Logout
 							</p>
@@ -74,6 +83,15 @@ const Header = () => {
 						</div>
 					) : (
 						<div>
+							{
+								user.role === 'admin' ?
+								<Link className={styles.link} to="/auth/admin">
+									Admin
+								</Link> :
+								<Link className={styles.link} to="/auth/dashboard">
+									Dashboard
+								</Link>
+							}
 							<p className={styles.link} onClick={logout}>
 								Logout
 							</p>
