@@ -1,0 +1,24 @@
+.listItem {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    border-radius:7px;
+    margin-bottom:10px;
+    padding:10px;
+    background:#fff;
+    box-shadow: 0 2px 7px 0 #e6e6e6;
+}
+
+.info {
+    display: flex;
+    flex-direction: row;
+}
+
+.col {
+    margin-left:15px;
+}
+
+.col p {
+    word-break: break-all;
+}

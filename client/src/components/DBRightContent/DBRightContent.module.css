@@ -1,0 +1,36 @@
+.rightContent {
+    width: calc(100% - 250px);
+    max-width: calc(100% - 250px);
+}
+
+.gear__smallscreen {
+    display: flex;
+    align-items: center;
+    background:rgba(0,0,0,0.5);    
+    display:none;
+    height:50px;
+}
+
+.gear__icon {
+    font-size:1.2rem;
+    color: #fff;
+    margin-left:15px;
+    cursor:pointer;
+}
+
+.contents {
+    padding:15px;
+}
+
+
+@media screen and (max-width: 890px) {
+    .rightContent,
+    .gear__smallscreen {
+        width: 100%;
+        max-width:100%;
+    }
+
+    .gear__smallscreen {
+        display:flex;
+    }
+}

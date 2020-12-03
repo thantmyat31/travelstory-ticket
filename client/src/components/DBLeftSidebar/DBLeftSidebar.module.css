@@ -1,0 +1,29 @@
+.leftSidebar {
+    display:flex;
+    width: 250px;
+    background:#5e5e5e;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
+    position: fixed;
+    top:70;
+    left:0;
+    height:100%;
+}
+
+
+@media screen and (max-width:890px) {
+    .leftSidebar {
+        overflow:hidden;
+        height:100%;
+        width:0;
+    }
+    .leftSidebar.open {
+        width:100%;
+    }
+}
+
+@media screen and (max-width:770px) {
+    .leftSidebar {
+        top:48.8px;
+    }
+}

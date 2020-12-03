@@ -22,8 +22,20 @@ a {
   text-decoration: none;
 }
 
+.app {
+  height:calc(100vh - 70px);
+  min-height:calc(100vh - 70px);
+}
+
 .page {
   max-width: 870px;
   padding:0 15px;
   margin:40px auto;
+}
+
+@media screen and (max-width:770px) {
+  .app {
+    height: calc(100vh - 48.8px);
+    min-height: calc(100vh - 48.8px);
+  }
 }

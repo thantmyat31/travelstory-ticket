@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const User = require("./../model/user");
 
 exports.requireSignin = (req, res, next) => {
     try {
@@ -15,11 +16,46 @@ exports.requireSignin = (req, res, next) => {
                 message: 'Token verification failed, authorization denied.'
             });
 
-        req.user._id = verified._id;
+        req.userId = verified._id;
         next();
     } catch (error) {
         res.status(500).json({
             message: 'Authentication failed. Try again later.'
         })
     }
+}
+
+
+// admin middleware
+exports.adminMiddleware = (req, res, next) => {
+    User.findById(req.userId)
+        .exec((error, user) => {
+            if(error || !user) return res.status(400).json({
+                error: 'User not found.'
+            });
+
+            if(user.role !== 'admin') return res.status(400).json({
+                error: 'Admin resource. Access denied.'
+            });
+
+            req.profile = user;
+            next();
+        })
+}
+
+// agency middleware
+exports.agencyMiddleware = (req, res, next) => {
+    User.findById(req.userId)
+        .exec((error, user) => {
+            if(error || !user) return res.status(400).json({
+                error: 'User not found.'
+            });
+
+            if(user.role !== 'admin' || user.role !== 'agency') return res.status(400).json({
+                error: 'Agency resource. Access denied.'
+            });
+
+            req.profile = user;
+            next();
+        })
 }

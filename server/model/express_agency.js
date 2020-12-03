@@ -24,6 +24,6 @@ const expressAgencySchema = Schema({
     timestamps: true
 })
 
-const ExpressAgency = mongoose.model('ExpressAgent', expressAgencySchema);
+const ExpressAgency = mongoose.model('ExpressAgency', expressAgencySchema);
 
 module.exports = ExpressAgency;

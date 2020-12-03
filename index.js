@@ -2,8 +2,13 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require("path");
+const morgan = require("morgan");
 
 require('dotenv').config();
+
+const authRouters = require('./server/routes/auth');
+const userRouters = require('./server/routes/user');
+const agencyRouters = require("./server/routes/agency");
 
 const mongodbUrl = process.env.MONGODB_URI;
 const app = express();
@@ -14,7 +19,8 @@ mongoose
 	.connect(mongodbUrl, {
 		useNewUrlParser: true,
 		useCreateIndex: true,
-		useUnifiedTopology: true
+        useUnifiedTopology: true,
+        useFindAndModify: false
 	})
 	.then(() => console.log('[MongoDB Connected]'))
 	.catch((error) => console.error("[Database Connection Failed]"));
@@ -23,12 +29,13 @@ mongoose
 // Middlewares
 app.use(express.json());
 app.use(cors());
-app.use('/api', require('./server/routes/auth'));
-app.use('/api/user', require('./server/routes/user'));
+app.use(morgan('common'));
+app.use('/api', authRouters);
+app.use('/api/user', userRouters);
+app.use('/api/agency', agencyRouters);
 
 if(process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, 'client', 'build')));
-    app.use(express.static('client/build'));
     app.get('*', (req, res) => {
         res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
     });

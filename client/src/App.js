@@ -8,11 +8,12 @@ import LoginPage from './pages/Auth/Login/Login.page';
 import RegisterPage from './pages/Auth/Register/Register.page';
 import NotFoundPage from './pages/NotFound/NotFound.page';
 import ActivationPage from './pages/Auth/Activation/ActivationPage';
-import UserDashboardPage from './pages/Auth/UserDashboard/UserDashboardPage';
+import UserDBPage from './pages/Auth/UserDBPage/UserDBPage';
+import AdminDBPage from './pages/Auth/AdminDBPage/AdminDBPage';
 
 import AuthRoute from './pages/Auth/AuthRoute';
 import AdminRoute from './pages/Auth/AdminRoute';
-import AdminDashboardPage from './pages/Auth/AdminDashboard/AdminDashboardPage';
+
 
 const App = () => {
 	const dispatch = useDispatch();
@@ -28,8 +29,8 @@ const App = () => {
 				<Route path="/register" component={RegisterPage} />
 				<Route path="/auth/activate/:token" component={ActivationPage} />
 				<Route exact path="/" component={LandingPage} />
-				<AuthRoute path="/auth/dashboard" component={UserDashboardPage} />
-				<AdminRoute path="/auth/admin" component={AdminDashboardPage} />
+				<AuthRoute path="/auth/dashboard" component={UserDBPage} />
+				<AdminRoute path="/auth/admin" component={AdminDBPage} />
 				<Route path="*" component={NotFoundPage} />
 			</Switch>
 		</div>
