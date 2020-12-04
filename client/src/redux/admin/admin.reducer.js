@@ -13,6 +13,7 @@ const adminReducer = (state = INITIAL_STATE, action) => {
     switch(action.type) {
         case adminActionTypes.GET_ALL_USER_START:
         case adminActionTypes.UPDATE_USER_ROLE_START:
+        case adminActionTypes.DELETE_USER_START:
             return {
                 ...state,
                 loading: true,
@@ -20,6 +21,7 @@ const adminReducer = (state = INITIAL_STATE, action) => {
 
         case adminActionTypes.GET_ALL_USER_FAILURE:
         case adminActionTypes.UPDATE_USER_ROLE_FAILURE:
+        case adminActionTypes.DELETE_USER_FAILURE:
             return {
                 ...state,
                 loading: false,
@@ -47,6 +49,19 @@ const adminReducer = (state = INITIAL_STATE, action) => {
                 admins: updatedUsersRole.filter(user => user.role === 'admin'),
                 subscribers: updatedUsersRole.filter(user => user.role === 'subscriber'),
                 agencies: updatedUsersRole.filter(user => user.role === 'agency'),
+            }
+
+        case adminActionTypes.DELETE_USER_SUCCESS:
+            
+            const updatedUsersList = state.users.filter(user => user._id !== action.payload._id);
+            return {
+                ...state,
+                loading: false,
+                error: null,
+                users: updatedUsersList,
+                admins: updatedUsersList.filter(user => user.role === 'admin'),
+                subscribers: updatedUsersList.filter(user => user.role === 'subscriber'),
+                agencies: updatedUsersList.filter(user => user.role === 'agency'),
             }
 
         default:

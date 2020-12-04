@@ -31,7 +31,6 @@ const AdminDBPage = () => {
             <div className={styles.dashboard}>
                 <DBLeftSidebar setCloseFromProps={(value) => setIsDrawerOpen(value)} isDrawerOpen={isDrawerOpen}>
                     <NavLink to="/auth/admin" className={styles.navLink} activeClassName={styles.active}>Users List</NavLink>
-                    
                 </DBLeftSidebar>
 
                 <DBRightContent onClick={() => setIsDrawerOpen(!isDrawerOpen)}>

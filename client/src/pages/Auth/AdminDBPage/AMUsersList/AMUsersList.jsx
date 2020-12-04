@@ -8,9 +8,11 @@ import Popup from '../../../../components/Popup/Popup';
 import styles from './AMUsersList.module.css';
 import colors from '../../../../config/colors';
 import { updateUserRoleAction } from '../../../../redux/admin/admin.action';
+import { deleteUserAction } from './../../../../redux/admin/admin.action';
 
 const AMUsersList = () => {
     const [ isPopupOpen, setIsPopupOpen ] = useState(false);
+    const [ isDeletePopupOpen, setIsDeletePopupOpen ] = useState(false);
     const [ userRole, setUserRole ] = useState('');
     const [ userId, setUserId ] = useState('');
     const { admins, subscribers, agencies } = useSelector(state => state.admin);
@@ -19,6 +21,7 @@ const AMUsersList = () => {
 
     const renderUsers = (users) => {
         return users.map((user, index) => <UsersListItem 
+            openDeletePopup={(value) => setIsDeletePopupOpen(value)}
             openPopup={(value) => setIsPopupOpen(value)} 
             userRole={(value) => setUserRole(value)} 
             userId={(value) => setUserId(value)}
@@ -46,6 +49,12 @@ const AMUsersList = () => {
         if(userRole && token && userId) dispatch(updateUserRoleAction({ userRole, token, userId }));
     }
 
+    const handleOnDelete = (event) => {
+        event.preventDefault();
+        setIsDeletePopupOpen(false);
+        if(userId && token) dispatch(deleteUserAction({ userId, token }));
+    }
+
     return ( 
         <>
             <h3 className={styles.label}>Admin Users</h3>
@@ -70,6 +79,24 @@ const AMUsersList = () => {
                         </div>
                     </form>
                 </Popup>: 
+                null
+            }
+
+            {isDeletePopupOpen ?
+                <Popup title="Are you sure to delete this user?">
+                    <div className={styles.form__group}>
+                        <Button 
+                            title="cancel" 
+                            onClick={() => setIsDeletePopupOpen(false)} 
+                            style={{ backgroundColor: colors.danger, borderColor: colors.danger }} 
+                        />
+                        <Button 
+                            title="delete" 
+                            style={{ marginLeft:'10px' }}
+                            onClick={handleOnDelete}
+                        />
+                    </div>
+                </Popup> :
                 null
             }
         </>

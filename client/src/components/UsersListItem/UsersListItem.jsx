@@ -5,7 +5,7 @@ import styles from './UsersListItem.module.css';
 import { FaKey, FaTrashAlt } from 'react-icons/fa';
 import colors from '../../config/colors';
 
-const UsersListItem = ({ user, openPopup, userRole, userId }) => {
+const UsersListItem = ({ user, openPopup, openDeletePopup, userRole, userId }) => {
     
     const handleOnChangeRole = () => {
         openPopup(true);
@@ -34,10 +34,20 @@ const UsersListItem = ({ user, openPopup, userRole, userId }) => {
             </div>
             <div className={styles.listItem}>
                 <div className={styles.col}>
-                    <Button title="Change role" icon={<FaKey />} style={{ padding:'10px' }} onClick={handleOnChangeRole} />
+                    <Button 
+                        title="Change role" 
+                        icon={<FaKey />} 
+                        style={{ padding:'10px' }} 
+                        onClick={handleOnChangeRole} 
+                    />
                 </div>
                 <div className={styles.col}>
-                    <Button title="Delete" icon={<FaTrashAlt />} style={{ padding:'10px', backgroundColor:colors.danger, borderColor: colors.danger }} />
+                    <Button 
+                        title="Delete" 
+                        icon={<FaTrashAlt />} 
+                        style={{ padding:'10px', backgroundColor:colors.danger, borderColor: colors.danger }}  
+                        onClick={() => openDeletePopup(true)}
+                    />
                 </div>
             </div>
         </div>

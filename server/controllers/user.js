@@ -30,6 +30,18 @@ exports.updateRole = (req, res) => {
         })
 }
 
+exports.deleteUser = (req, res) => {
+    User.findByIdAndDelete(req.params.id)
+        .exec((error, deletedUser) => {
+            if(error || !deletedUser) return res.status(500).json({
+                message: 'User could not be deleted.'
+            })
+            console.log(deletedUser);
+            return res.json(deletedUser);
+            
+        })  
+}
+
 exports.getUserById = (req, res) => {
     User.findById(req.userId)
         .exec((error, user) => {
@@ -47,18 +59,4 @@ exports.getUserById = (req, res) => {
             }
         })
     
-}
-
-exports.deleteUser = (req, res) => {
-    User.findByIdAndDelete(req.userId)
-        .exec((error, deletedUser) => {
-            if(error || !deletedUser) return res.status(500).json({
-                message: 'User could not be deleted.'
-            })
-          
-            return res.json({
-                message: 'User was deleted successfully.'
-            })
-            
-        })  
 }

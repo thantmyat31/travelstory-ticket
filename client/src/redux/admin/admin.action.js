@@ -43,3 +43,22 @@ export const updateUserRoleAction = ({ userId, userRole, token }) => {
         })
     }
 }
+
+export const deleteUserAction = ({ userId, token }) => {
+    return (dispatch) => {
+        dispatch({ type: adminActionTypes.DELETE_USER_START });
+        apiCall({
+            method: 'DELETE',
+            url: `/user/${userId}`,
+            headers: {
+                'x-auth-token': token
+            }
+        })
+        .then(response => {
+            dispatch({ type: adminActionTypes.DELETE_USER_SUCCESS, payload: response?.data });
+        })
+        .catch(error => {
+            dispatch({ type: adminActionTypes.GET_ALL_USER_FAILURE, payload: error?.response?.data?.message });
+        })
+    }
+}
