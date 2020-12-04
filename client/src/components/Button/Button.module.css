@@ -1,17 +1,16 @@
 .button {
     padding: 10px 40px;
-    border: 1px solid #ff6600;
-    background: #ff6600;
+    border: 1px solid #86959C;
+    background: #86959C;
     color: #fff;
     text-transform: uppercase;
-    transition-duration: 0.4s;
+    transition-duration: 0.2s;
     transition-timing-function: ease-in-out;
+    cursor:pointer;
 }
 
 .button:hover {
-    border: 1px solid #ff6600;
-    background: #fff;
-    color: #ff6600;
+    box-shadow: 0 1px 5px 0 #999;
 }
 
 .button:focus {

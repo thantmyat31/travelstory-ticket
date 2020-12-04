@@ -4,43 +4,40 @@ import { getAllUsersAction } from '../../../redux/admin/admin.action';
 import useCheckTokenValid from '../../../hooks/useCheckTokenValid';
 
 import Layout from '../../../components/Layout/Layout';
-import UsersListItem from '../../../components/UsersListItem/UsersListItem';
+
 import DBLeftSidebar from '../../../components/DBLeftSidebar/DBLeftSidebar';
 import DBRightContent from '../../../components/DBRightContent/DBRightContent';
 
 import styles from './AdminDBPage.module.css';
 
+import { NavLink, Switch, Route } from 'react-router-dom';
+import AMUsersList from './AMUsersList/AMUsersList';
+
 const AdminDBPage = () => {
     useCheckTokenValid();
     const [ isDrawerOpen, setIsDrawerOpen ] = useState(false);
     const { token } = useSelector(state => state.user);
-    const { admins, subscribers, agencies } = useSelector(state => state.admin);
+    
     const dispatch = useDispatch();
 
     useEffect(() => {
         if(token) dispatch(getAllUsersAction(token));
     }, [dispatch, token]);
 
-    const renderUsers = (users) => {
-        return users.map((user, index) => <UsersListItem key={index} user={user} />)
-    }
+    
 
     return ( 
         <Layout>
             <div className={styles.dashboard}>
                 <DBLeftSidebar setCloseFromProps={(value) => setIsDrawerOpen(value)} isDrawerOpen={isDrawerOpen}>
-                    LeftSidebar
+                    <NavLink to="/auth/admin" className={styles.navLink} activeClassName={styles.active}>Users List</NavLink>
+                    
                 </DBLeftSidebar>
 
                 <DBRightContent onClick={() => setIsDrawerOpen(!isDrawerOpen)}>
-                    <h3>Admin Users</h3>
-                    {admins?renderUsers(admins):'loading......'}
-
-                    <h3>Subscribed Users</h3>
-                    {subscribers?renderUsers(subscribers):'loading......'}
-
-                    <h3>Agencies</h3>
-                    {agencies?renderUsers(agencies):'loading......'}
+                    <Switch>
+                        <Route exact path="/auth/admin" component={AMUsersList} />
+                    </Switch>
                 </DBRightContent>
             </div>
         </Layout>   

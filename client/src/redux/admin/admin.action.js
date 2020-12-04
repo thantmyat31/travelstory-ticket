@@ -23,3 +23,23 @@ export const getAllUsersAction = (token) => {
         })
     }
 }
+
+export const updateUserRoleAction = ({ userId, userRole, token }) => {
+    return (dispatch) => {
+        dispatch({ type: adminActionTypes.UPDATE_USER_ROLE_START });
+        apiCall({
+            method: 'PUT',
+            url: `/user/${userId}`,
+            headers: {
+                'x-auth-token': token
+            },
+            data: { newRole: userRole }
+        })
+        .then(response => {
+            dispatch({ type: adminActionTypes.UPDATE_USER_ROLE_SUCCESS, payload: response?.data });
+        })
+        .catch(error => {
+            dispatch({ type: adminActionTypes.UPDATE_USER_ROLE_FAILURE, payload: error?.response?.data?.message })
+        })
+    }
+}

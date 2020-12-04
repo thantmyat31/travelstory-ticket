@@ -10,18 +10,6 @@ const DBRightContent = ({ children, onClick }) => {
             </div>
             <div className={styles.contents}>
                 {children}
-                {children}
-                {children}
-                {children}
-                {children}
-
-                {children}
-
-                {children}
-                {children}
-                {children}
-
-                {children}
             </div>
         </div>
      );

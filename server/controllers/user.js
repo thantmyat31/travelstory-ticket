@@ -52,14 +52,13 @@ exports.getUserById = (req, res) => {
 exports.deleteUser = (req, res) => {
     User.findByIdAndDelete(req.userId)
         .exec((error, deletedUser) => {
-            if(error || !deletedUser) {
-                return res.status(500).json({
-                    message: 'User could not be deleted.'
-                })
-            } else {
-                return res.json({
-                    message: 'User was deleted successfully.'
-                })
-            }
+            if(error || !deletedUser) return res.status(500).json({
+                message: 'User could not be deleted.'
+            })
+          
+            return res.json({
+                message: 'User was deleted successfully.'
+            })
+            
         })  
 }

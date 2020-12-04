@@ -1,7 +1,7 @@
 .leftSidebar {
     display:flex;
     width: 250px;
-    background:#5e5e5e;
+    background:#6B95A0;
     transition-duration: 0.3s;
     transition-timing-function: ease-in-out;
     position: fixed;
