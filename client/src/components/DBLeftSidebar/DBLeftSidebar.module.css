@@ -1,5 +1,6 @@
 .leftSidebar {
     display:flex;
+    flex-direction: column;
     width: 250px;
     background:#6B95A0;
     transition-duration: 0.3s;

@@ -10,9 +10,11 @@ import NotFoundPage from './pages/NotFound/NotFound.page';
 import ActivationPage from './pages/Auth/Activation/ActivationPage';
 import UserDBPage from './pages/Auth/UserDBPage/UserDBPage';
 import AdminDBPage from './pages/Auth/AdminDBPage/AdminDBPage';
+import AgencyDBPage from './pages/Auth/AgencyDBPage/AgencyDBPage';
 
 import AuthRoute from './pages/Auth/AuthRoute';
 import AdminRoute from './pages/Auth/AdminRoute';
+import AgencyRoute from './pages/Auth/AgencyRoute';
 
 
 const App = () => {
@@ -30,6 +32,7 @@ const App = () => {
 				<Route path="/auth/activate/:token" component={ActivationPage} />
 				<Route exact path="/" component={LandingPage} />
 				<AuthRoute path="/auth/dashboard" component={UserDBPage} />
+				<AgencyRoute path="/auth/agency" component={AgencyDBPage} />
 				<AdminRoute path="/auth/admin" component={AdminDBPage} />
 				<Route path="*" component={NotFoundPage} />
 			</Switch>

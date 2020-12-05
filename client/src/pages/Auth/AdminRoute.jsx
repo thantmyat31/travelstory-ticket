@@ -11,6 +11,8 @@ const AdminRoute = ({ component: Component, ...rest  }) => {
             render={(props) => {
                 if(isAuth && user?.role === 'admin') {
                     return <Component {...props} />
+                } else if(isAuth && user?.role === 'master_admin') {
+                    return <Component {...props} />
                 } else {
                     return <Redirect 
                         to={{ 

@@ -31,15 +31,17 @@ exports.adminMiddleware = (req, res, next) => {
     User.findById(req.userId)
         .exec((error, user) => {
             if(error || !user) return res.status(400).json({
-                error: 'User not found.'
+                message: 'User not found.'
             });
 
-            if(user.role !== 'admin') return res.status(400).json({
-                error: 'Admin resource. Access denied.'
-            });
-
-            req.profile = user;
-            next();
+            if(user.role === 'admin' || user.role === 'master_admin') {
+                req.profile = user;
+                next();
+            } else {
+                return res.status(400).json({
+                    message: 'Admin resource. Access denied.'
+                });
+            }
         })
 }
 
@@ -48,11 +50,11 @@ exports.agencyMiddleware = (req, res, next) => {
     User.findById(req.userId)
         .exec((error, user) => {
             if(error || !user) return res.status(400).json({
-                error: 'User not found.'
+                message: 'User not found.'
             });
 
-            if(user.role !== 'admin' || user.role !== 'agency') return res.status(400).json({
-                error: 'Agency resource. Access denied.'
+            if(user.role !== 'agency') return res.status(400).json({
+                message: 'Agency resource. Access denied.'
             });
 
             req.profile = user;

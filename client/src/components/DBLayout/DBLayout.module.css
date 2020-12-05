@@ -7,13 +7,13 @@
 }
 
 .navLink {
-    width:100%;
     height:40px;
     line-height:40px;
     padding:0 15px;
     color:#fff;
     background: #D8CBD6;
     border-bottom:1px solid #ddd;
+    transition:0.3s;
 }
 
 .navLink:hover,

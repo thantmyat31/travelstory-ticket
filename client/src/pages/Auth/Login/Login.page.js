@@ -35,8 +35,12 @@ const LoginPage = () => {
 			{
 				isAuth && user?.role === 'admin' ? 
 				<Redirect to="/auth/admin" /> : 
+				isAuth && user?.role === 'master_admin' ? 
+				<Redirect to="/auth/admin" /> : 
 				isAuth && user?.role === 'subscriber' ?
-				<Redirect to="/auth/dashboard" /> : null
+				<Redirect to="/auth/dashboard" /> :
+				isAuth && user?.role === 'agency' ?
+				<Redirect to="/auth/agency" /> : null
 			}
 			<div className={styles.container}>
 				<h1>Login</h1>

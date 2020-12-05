@@ -2,14 +2,14 @@ import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-const AuthRoute = ({ component: Component, ...rest  }) => {
-    const { user, token } = useSelector(state => state.user);
+const AgencyRoute = ({ component: Component, ...rest  }) => {
+    const { isAuth, user } = useSelector(state => state.user);
 
     return ( 
         <Route 
             {...rest}
             render={(props) => {
-                if(user && token) {
+                if(isAuth && user?.role === 'agency') {
                     return <Component {...props} />
                 } else {
                     return <Redirect 
@@ -26,4 +26,4 @@ const AuthRoute = ({ component: Component, ...rest  }) => {
      );
 }
  
-export default AuthRoute;
+export default AgencyRoute;

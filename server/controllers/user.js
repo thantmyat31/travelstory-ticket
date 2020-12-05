@@ -36,7 +36,6 @@ exports.deleteUser = (req, res) => {
             if(error || !deletedUser) return res.status(500).json({
                 message: 'User could not be deleted.'
             })
-            console.log(deletedUser);
             return res.json(deletedUser);
             
         })  

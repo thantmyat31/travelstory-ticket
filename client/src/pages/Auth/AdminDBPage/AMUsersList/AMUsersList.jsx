@@ -1,5 +1,6 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { deleteUserAction, getAllUsersAction, updateUserRoleAction } from './../../../../redux/admin/admin.action';
 
 import UsersListItem from '../../../../components/UsersListItem/UsersListItem';
 import Button from '../../../../components/Button/Button';
@@ -7,8 +8,6 @@ import Popup from '../../../../components/Popup/Popup';
 
 import styles from './AMUsersList.module.css';
 import colors from '../../../../config/colors';
-import { updateUserRoleAction } from '../../../../redux/admin/admin.action';
-import { deleteUserAction } from './../../../../redux/admin/admin.action';
 
 const AMUsersList = () => {
     const [ isPopupOpen, setIsPopupOpen ] = useState(false);
@@ -18,6 +17,10 @@ const AMUsersList = () => {
     const { admins, subscribers, agencies } = useSelector(state => state.admin);
     const { token } = useSelector(state => state.user);
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        if(token) dispatch(getAllUsersAction(token));
+    }, [dispatch, token]);
 
     const renderUsers = (users) => {
         return users.map((user, index) => <UsersListItem 

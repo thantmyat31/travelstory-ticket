@@ -1,4 +1,5 @@
 import { adminActionTypes } from './admin.type';
+import { userActionTypes } from './../user/user.type';
 
 const INITIAL_STATE = {
     users : [],
@@ -11,6 +12,19 @@ const INITIAL_STATE = {
 
 const adminReducer = (state = INITIAL_STATE, action) => {
     switch(action.type) {
+        case userActionTypes.USER_LOGIN_SUCCESS:
+            if(action.payload?.role !== 'admin' || action.payload?.role !== 'master_admin') return {
+                ...state,
+                users : [],
+                admins: [],
+                subscribers: [],
+                agencies: [],
+                error: null,
+                loading: false
+            }
+            
+            return state;
+            
         case adminActionTypes.GET_ALL_USER_START:
         case adminActionTypes.UPDATE_USER_ROLE_START:
         case adminActionTypes.DELETE_USER_START:
