@@ -1,0 +1,23 @@
+.form__role {
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.form__col {
+    width:calc(50% - 20px);
+    padding:0 10px;
+}
+
+.image {
+    width:100%;
+    margin-top:15px;
+}
+
+@media screen and (max-width: 480px) {
+    .form__col {
+        width:100%;
+        padding:0 10px;
+    }
+}

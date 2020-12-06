@@ -55,6 +55,10 @@ const Header = () => {
 								<Link className={styles.link} to="/auth/admin">
 									Admin
 								</Link>: 
+								user.role === 'agency' ?
+								<Link className={styles.link} to="/auth/agency">
+									Dashboard
+								</Link>:
 								<Link className={styles.link} to="/auth/dashboard">
 									Dashboard
 								</Link>
@@ -88,6 +92,10 @@ const Header = () => {
 								<Link className={styles.link} to="/auth/admin">
 									Admin
 								</Link> :
+								user.role === 'agency' ?
+								<Link className={styles.link} to="/auth/agency">
+									Dashboard
+								</Link>:
 								<Link className={styles.link} to="/auth/dashboard">
 									Dashboard
 								</Link>

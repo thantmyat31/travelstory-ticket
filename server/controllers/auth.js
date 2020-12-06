@@ -3,26 +3,7 @@ const jwt = require('jsonwebtoken');
 const sgMail = require("@sendgrid/mail");
 
 exports.register = (req, res) => {
-
-    let { email, password, confirmPassword, displayName } = req.body;
-
-    // Validate
-    if (!email || !password || !confirmPassword)
-        return res.status(400).json({
-            message: 'Not all fields have been entered.'
-        });
-
-    if (password.length < 5)
-        return res.status(400).json({
-            message: 'The password needs to be atleast 5 charactors long.'
-        });
-
-    if (password !== confirmPassword)
-        return res.status(400).json({
-            message: 'Enter the same password twice for verification.'
-        });
-
-    if (!displayName) displayName = email;
+    let { email, password, displayName } = req.body;
 
     User.findOne({ email })
         .exec((error, user) => {
@@ -107,13 +88,6 @@ exports.accountActivation = (req, res) => {
 
 exports.login = (req, res) => {
         const { email, password } = req.body;
-
-        // Validate
-        if(!email || !password) {
-            return res.status(400).json({
-				message: 'Not all fields have been entered.'
-            });
-        }
             
         User.findOne({ email: email })
             .exec((error, user) => {

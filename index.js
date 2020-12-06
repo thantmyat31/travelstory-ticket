@@ -34,6 +34,8 @@ app.use('/api', authRouters);
 app.use('/api/user', userRouters);
 app.use('/api/agency', agencyRouters);
 
+app.use(express.static('./upload/'));
+
 if(process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, 'client', 'build')));
     app.get('*', (req, res) => {

@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 const expressAgencySchema = Schema({
     owner: {
         type: Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'User',
+        required: true
     },
     name: {
         type: String,
@@ -12,14 +13,25 @@ const expressAgencySchema = Schema({
         required: true
     },
     email: {
-        type: Array,
+        type: String,
         trim: true,
-        unique: true
+        unique: true,
+        lowercase: true,
+        required: true,
     },
-    phone: {
+    phones: {
         type: Array,
-        required: true
+        required: true,
+        default: []
     },
+    addresses: {
+        type: Array,
+        required: true,
+        default: []
+    },
+    image: {
+        type: String
+    }
 }, {
     timestamps: true
 })
