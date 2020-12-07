@@ -15,9 +15,9 @@ const expressAgencySchema = Schema({
     email: {
         type: String,
         trim: true,
-        unique: true,
         lowercase: true,
         required: true,
+        index: true
     },
     phones: {
         type: Array,

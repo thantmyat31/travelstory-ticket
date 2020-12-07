@@ -1,4 +1,4 @@
-.form__role {
+.form__row {
     display:flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -13,6 +13,40 @@
 .image {
     width:100%;
     margin-top:15px;
+}
+
+.groups {
+    margin:20px 0;
+}
+
+.groups label b {
+    color:#ff6600;
+}
+
+.group__row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.group__col {
+    width:45%;
+}
+
+.textarea {
+    background-color:#f9f9f9;
+    border:1px solid #ddd;
+    width:100%;
+}
+
+.textarea:focus {
+    border-color:#6B95A0;
+    outline:none;
+}
+
+.textarea:disabled {
+    background:#efefef;
 }
 
 @media screen and (max-width: 480px) {

@@ -51,11 +51,11 @@ const Header = () => {
 						<UserAvatar user={user} style={{ cursor: "pointer" }} />
 						{isDrop && <div className={styles.dropdown}>
 							{
-								user.role === 'admin' || user.role === 'master_admin' ? 
+								user?.role === 'admin' || user?.role === 'master_admin' ? 
 								<Link className={styles.link} to="/auth/admin">
 									Admin
 								</Link>: 
-								user.role === 'agency' ?
+								user?.role === 'agency' ?
 								<Link className={styles.link} to="/auth/agency">
 									Dashboard
 								</Link>:
@@ -88,11 +88,11 @@ const Header = () => {
 					) : (
 						<div>
 							{
-								user.role === 'admin' || user.role === 'master_admin' ?
+								user?.role === 'admin' || user?.role === 'master_admin' ?
 								<Link className={styles.link} to="/auth/admin">
 									Admin
 								</Link> :
-								user.role === 'agency' ?
+								user?.role === 'agency' ?
 								<Link className={styles.link} to="/auth/agency">
 									Dashboard
 								</Link>:
