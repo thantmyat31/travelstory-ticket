@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createExpressAgencyAction, resetError } from './../../../../redux/agency/agency.action';
+import { createExpressAgencyAction } from './../../../../redux/agency/agency.action';
+import { errorReset } from './../../../../redux/user/user.action';
 
 import Input from './../../../../components/Input/Input';
 import ImageDropzone from '../../../../components/ImageDropzone/ImageDropzone';
@@ -23,11 +24,11 @@ const AGNewForm = () => {
     const [ addressString, setAddressString ] = useState('');
 
     const { token, user } = useSelector(state => state.user);
-    const { error } = useSelector(state => state.agency);
+    const { error, express_agency } = useSelector(state => state.agency);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(resetError());
+        dispatch(errorReset());
         if(error) {
             toast.error(error);
         }
@@ -92,6 +93,13 @@ const AGNewForm = () => {
             </div>
         ))
     }
+
+    if(express_agency) return (
+        <div>
+            <h2>You have already created an express agency.</h2>
+            <p>Only allowed to create 1 express agency for a user (agency) account.</p>
+        </div>
+    )
 
     return ( 
         <>

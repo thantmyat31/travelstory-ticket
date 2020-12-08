@@ -1,11 +1,11 @@
 .inputGroup {
     width:100%;
+    margin-bottom:15px;
 }
 
 .inputGroup label {
     display: block;
     width:100%;
-    margin-top:15px;
     line-height:30px;
     text-transform: capitalize;
 }
@@ -26,7 +26,7 @@
 
 .inputGroup input:focus {
     outline: none;
-    border-bottom:1px solid #6B95A0;
+    border-bottom:1px solid #00b5e4;
     background:#fff;
 }
 

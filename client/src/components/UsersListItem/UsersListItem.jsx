@@ -3,7 +3,6 @@ import UserAvatar from '../UserAvatar/UserAvatar';
 import Button from './../Button/Button';
 import styles from './UsersListItem.module.css';
 import { FaKey, FaTrashAlt } from 'react-icons/fa';
-import colors from '../../config/colors';
 
 const UsersListItem = ({ user, openPopup, openDeletePopup, userRole, userId }) => {
     
@@ -45,7 +44,8 @@ const UsersListItem = ({ user, openPopup, openDeletePopup, userRole, userId }) =
                     <Button 
                         title="Delete" 
                         icon={<FaTrashAlt />} 
-                        style={{ padding:'10px', backgroundColor:colors.danger, borderColor: colors.danger }}  
+                        style={{ padding:'10px' }}
+                        btnColor="danger"  
                         onClick={() => openDeletePopup(true)}
                     />
                 </div>

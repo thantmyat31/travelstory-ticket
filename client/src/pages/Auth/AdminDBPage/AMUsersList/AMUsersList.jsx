@@ -7,7 +7,7 @@ import Button from '../../../../components/Button/Button';
 import Popup from '../../../../components/Popup/Popup';
 
 import styles from './AMUsersList.module.css';
-import colors from '../../../../config/colors';
+import Title from '../../../../components/Title/Title';
 
 const AMUsersList = () => {
     const [ isPopupOpen, setIsPopupOpen ] = useState(false);
@@ -60,13 +60,13 @@ const AMUsersList = () => {
 
     return ( 
         <>
-            <h3 className={styles.label}>Admin Users</h3>
+            <Title title="Admin Users" />
             {admins?renderUsers(admins):'loading......'}
 
-            {subscribers.length>0&&<h3 className={styles.label}>Subscribed Users</h3>}
+            {subscribers.length>0&&<Title title="Subscribed Users" />}
             {subscribers?renderUsers(subscribers):'loading......'}
 
-            {agencies.length>0&&<h3 className={styles.label}>Agencies</h3>}
+            {agencies.length>0&&<Title title="Agencies" />}
             {agencies?renderUsers(agencies):'loading......'}
 
             {isPopupOpen ?
@@ -77,7 +77,7 @@ const AMUsersList = () => {
                         {formRadio('agency')}
 
                         <div className={styles.form__group}>
-                            <Button title="cancel" onClick={() => setIsPopupOpen(false)} style={{ backgroundColor: colors.danger, borderColor: colors.danger }} />
+                            <Button title="cancel" btnColor="danger" onClick={() => setIsPopupOpen(false)}  />
                             <Button type="submit" title="change" style={{ marginLeft:'10px' }} />
                         </div>
                     </form>
@@ -91,7 +91,7 @@ const AMUsersList = () => {
                         <Button 
                             title="cancel" 
                             onClick={() => setIsDeletePopupOpen(false)} 
-                            style={{ backgroundColor: colors.danger, borderColor: colors.danger }} 
+                            btnColor="danger"
                         />
                         <Button 
                             title="delete" 

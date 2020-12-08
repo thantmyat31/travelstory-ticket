@@ -6,7 +6,7 @@ const citySchema = Schema({
         type: String,
         required: true
     },
-    city_code: {
+    code: {
         type: String,
         required: true
     }

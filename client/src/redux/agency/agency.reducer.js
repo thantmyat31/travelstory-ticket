@@ -1,13 +1,22 @@
 import { agencyActionTypes } from './agency.type';
+import { userActionTypes } from './../user/user.type';
 
 const INITIAL_STATE = {
-    express_agency: {},
+    express_agency: undefined,
     loading: false,
     error: null
 }
 
 const agencyReducer = (state = INITIAL_STATE, action) => {
     switch(action.type) {
+        case userActionTypes.USER_LOGOUT_ACTION:
+            return {
+                ...state,
+                express_agency: undefined,
+                loading: false,
+                error: null
+            }
+
         case agencyActionTypes.CREATE_EXPRESS_AGENCY_START:
         case agencyActionTypes.GET_OWN_EXPRESS_AGENCY_START:
             return {
@@ -37,7 +46,7 @@ const agencyReducer = (state = INITIAL_STATE, action) => {
                 express_agency: action.payload
             }
 
-        case agencyActionTypes.RESET_ERROR:
+        case userActionTypes.ERROR_RESET:
             return {
                 ...state,
                 loading: false,

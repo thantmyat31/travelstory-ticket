@@ -77,7 +77,3 @@ export const getOwnAgencyAction = ({ id, token }) => {
         })
     }
 }
-
-export const resetError = () => ({
-    type: agencyActionTypes.RESET_ERROR
-});

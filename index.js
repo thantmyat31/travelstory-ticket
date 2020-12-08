@@ -9,6 +9,7 @@ require('dotenv').config();
 const authRouters = require('./server/routes/auth');
 const userRouters = require('./server/routes/user');
 const agencyRouters = require("./server/routes/agency");
+const cityRouters = require("./server/routes/city");
 
 const mongodbUrl = process.env.MONGODB_URI;
 const app = express();
@@ -33,6 +34,7 @@ app.use(morgan('common'));
 app.use('/api', authRouters);
 app.use('/api/user', userRouters);
 app.use('/api/agency', agencyRouters);
+app.use('/api/city', cityRouters);
 
 app.use(express.static('./upload/'));
 

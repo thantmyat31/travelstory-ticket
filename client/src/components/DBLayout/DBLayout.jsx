@@ -13,7 +13,17 @@ const DBLayout = ({ navLinks, routes }) => {
     const [ isDrawerOpen, setIsDrawerOpen ] = useState(false);
 
     const renderNavLinks = (navLinks) => {
-        return navLinks.map((link, index) => <NavLink key={index} exact to={link.path} className={styles.navLink} activeClassName={styles.active}>{link.name}</NavLink>)
+        return navLinks.map((link, index) => (
+            <NavLink 
+                key={index} 
+                exact 
+                to={link.path} 
+                className={styles.navLink} 
+                activeClassName={styles.active}
+            >
+                <span className={styles.link__icon}>{link.icon}</span> {link.name}
+            </NavLink>
+        ))
     }
 
     const renderRoutes = (routes) => {

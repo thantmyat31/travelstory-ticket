@@ -14,10 +14,18 @@
     background: #D8CBD6;
     border-bottom:1px solid #ddd;
     transition:0.3s;
+    display: flex;
+    align-items: center;
 }
 
 .navLink:hover,
 .active {
     background:#fff;
     color:#555;
+}
+
+.link__icon {
+    margin-right:5px;
+    display: flex;
+    align-items: center;
 }
