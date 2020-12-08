@@ -20,6 +20,7 @@ const adminReducer = (state = INITIAL_STATE, action) => {
                 admins: [],
                 subscribers: [],
                 agencies: [],
+                cities: [],
                 error: null,
                 loading: false
             }
