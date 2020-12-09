@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addCityAction, deleteCityAction, getAllCitiesAction } from './../../../../redux/admin/admin.action';
+import { addCityAction, deleteCityAction, getAllCitiesAction } from './../../../../redux/city/city.action';
 
 import Button from '../../../../components/Button/Button';
 import CardRow from '../../../../components/CardRow/CardRow';
@@ -16,13 +16,13 @@ const AMCities = () => {
     const [ code, setCode ] = useState('');
     const [ cityId, setCityId ] = useState('');
     const [ openDeletePopup, setOpenDeletePopup ] = useState(false);
-    const { cities } = useSelector(state => state.admin);
+    const { cities } = useSelector(state => state.city);
     const { token } = useSelector(state => state.user);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if(token) dispatch(getAllCitiesAction({ token }));
-    }, [dispatch, token]);
+        dispatch(getAllCitiesAction());
+    }, [dispatch]);
 
     const handleOnSubmit = (event) => {
         event.preventDefault();
@@ -42,7 +42,6 @@ const AMCities = () => {
     const handleOnPreDelete = (cityId) => {
         setCityId(cityId);
         setOpenDeletePopup(true);
-
     }
 
     const handleOnDelete = (cityId) => {

@@ -6,7 +6,6 @@ const INITIAL_STATE = {
     admins: [],
     subscribers: [],
     agencies: [],
-    cities: [],
     error: null,
     loading: false
 }
@@ -20,7 +19,6 @@ const adminReducer = (state = INITIAL_STATE, action) => {
                 admins: [],
                 subscribers: [],
                 agencies: [],
-                cities: [],
                 error: null,
                 loading: false
             }
@@ -28,9 +26,6 @@ const adminReducer = (state = INITIAL_STATE, action) => {
         case adminActionTypes.GET_ALL_USER_START:
         case adminActionTypes.UPDATE_USER_ROLE_START:
         case adminActionTypes.DELETE_USER_START:
-        case adminActionTypes.GET_ALL_CITIES_START:
-        case adminActionTypes.ADD_CITY_START:
-        case adminActionTypes.DELETE_CITY_START:
             return {
                 ...state,
                 loading: true,
@@ -39,9 +34,6 @@ const adminReducer = (state = INITIAL_STATE, action) => {
         case adminActionTypes.GET_ALL_USER_FAILURE:
         case adminActionTypes.UPDATE_USER_ROLE_FAILURE:
         case adminActionTypes.DELETE_USER_FAILURE:
-        case adminActionTypes.GET_ALL_CITIES_FAILURE:
-        case adminActionTypes.ADD_CITY_FAILURE:
-        case adminActionTypes.DELETE_CITY_FAILURE:
             return {
                 ...state,
                 loading: false,
@@ -81,27 +73,6 @@ const adminReducer = (state = INITIAL_STATE, action) => {
                 admins: updatedUsersList.filter(user => user.role === 'admin'),
                 subscribers: updatedUsersList.filter(user => user.role === 'subscriber'),
                 agencies: updatedUsersList.filter(user => user.role === 'agency'),
-            }
-
-        case adminActionTypes.GET_ALL_CITIES_SUCCESS:
-            return {
-                ...state,
-                loading: false,
-                cities: action.payload
-            }
-
-        case adminActionTypes.ADD_CITY_SUCCESS:
-            return {
-                ...state,
-                loading: false,
-                cities: [...state.cities, action.payload]
-            }
-
-        case adminActionTypes.DELETE_CITY_SUCCESS:
-            return {
-                ...state,
-                loading: false,
-                cities: state.cities.filter(city => city._id !== action.payload._id)
             }
 
         case userActionTypes.ERROR_RESET:
