@@ -1,13 +1,16 @@
 import React, {useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getOwnAgencyAction } from '../../../../redux/agency/agency.action';
+import { getTripsByAgencyAction } from '../../../../redux/trip/trip.action';
 import { errorReset } from './../../../../redux/user/user.action';
 
 import styles from './AGDetails.module.css';
+import CardRow from './../../../../components/CardRow/CardRow';
 
 const AGDetails = () => {
     const { user, token } = useSelector(state => state.user);
     const { express_agency, error } = useSelector(state => state.agency);
+    const { tripsByAgency } = useSelector(state => state.trip);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -17,6 +20,12 @@ const AGDetails = () => {
     useEffect(() => {
         dispatch(getOwnAgencyAction({ id: user._id, token }))
     }, [dispatch, user, token]);
+
+    useEffect(() => {
+        if(token) dispatch(getTripsByAgencyAction({ agencyId: express_agency._id, token }));
+    }, [dispatch, token, express_agency]);
+
+    console.log(tripsByAgency)
 
     if(!express_agency) return (
         <div>
@@ -48,6 +57,23 @@ const AGDetails = () => {
                         {express_agency.addresses.map((address, index) => <p key={index}>{address.location} - {address.address}</p>)}
                     </span>
                 </div>
+            </div>
+            <div className={styles.container}>
+            {
+                tripsByAgency && tripsByAgency.map((trip, index) => (
+                    <CardRow key={index}>
+                        <div>
+                            <h3>{trip.depart.time} {trip.busType}</h3>
+                            <p>{trip.tripName}</p>
+                            <p>Departs: {trip.depart.date}, {trip.depart.time} PM Afternoon</p>
+                            <p>Arrives: {trip.arrive.date}, {trip.arrive.time} AM   Duration: 15 Hours</p>
+                        </div>
+                        <div>
+                            <img width="100%" src={`${process.env.REACT_APP_IMAGE}/${trip.agency.image}`} />
+                        </div>
+                    </CardRow>
+                ))
+            }
             </div>
         </>
      );

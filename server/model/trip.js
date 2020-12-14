@@ -6,29 +6,41 @@ const tripSchema = Schema({
         type: Schema.Types.ObjectId,
         ref: 'ExpressAgency'
     },
-    name: {
+    busNumber: {
         type: String,
         required: true
     },
-    bus_number: {
+    tripName: {
         type: String,
         required: true
     },
-    trip_code: {
+    tripCode: {
         type: String,
         required: true
     },
-    bus_type: {
+    trips: {
+        type: Array,
+        required: true
+    },
+    busType: {
         type: String,
         default: 'Normal',
         required: true
     },
-    city_from: {
-        type: Array,
+    seatsList: {
+        type: Object,
         required: true
     },
-    city_to: {
-        type: Array,
+    depart: {
+        type: Object,
+        required: true
+    },
+    arrive: {
+        type: Object,
+        required: true
+    },
+    price: {
+        type: String,
         required: true
     }
 }, {

@@ -10,6 +10,7 @@ const authRouters = require('./server/routes/auth');
 const userRouters = require('./server/routes/user');
 const agencyRouters = require("./server/routes/agency");
 const cityRouters = require("./server/routes/city");
+const tripRouters = require('./server/routes/trip');
 
 const mongodbUrl = process.env.MONGODB_URI;
 const app = express();
@@ -35,6 +36,7 @@ app.use('/api', authRouters);
 app.use('/api/user', userRouters);
 app.use('/api/agency', agencyRouters);
 app.use('/api/city', cityRouters);
+app.use('/api/trip', tripRouters);
 
 app.use(express.static('./upload/'));
 

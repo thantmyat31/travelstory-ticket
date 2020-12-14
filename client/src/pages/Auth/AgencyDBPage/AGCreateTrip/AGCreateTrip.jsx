@@ -7,15 +7,23 @@ import Button from './../../../../components/Button/Button';
 
 import styles from './AGCreateTrip.module.css';
 import { toast, ToastContainer } from 'react-toastify';
+import { vipSeatsList, normalSeatsList } from '../../../../config/seats';
+import { createTripAction } from './../../../../redux/trip/trip.action';
 
-const AGCreateTrip = () => {
+const AGCreateTrip = ({ history }) => {
     const [ busNumber, setBusNumber ] = useState('');
     const [ tripName, setTripName ] = useState('');
     const [ tripCode, setTripCode ] = useState('');
     const [ trips, setTrips ] = useState([]);
+    const [ busType, setBusType ] = useState('');
+    const [ seatsList, setSeatsList ] = useState([]);
+    const [ depart, setDepart ] = useState({ date: '', time: '' });
+    const [ arrive, setArrive ] = useState({ date: '', time: '' });
     const [ cityFrom, setCityFrom ] = useState('');
     const [ cityTo, setCityTo ] = useState('');
-    const [ busType, setBusType ] = useState('');
+    const [ price, setPrice ] = useState('');
+
+    const { token } = useSelector(state => state.user);
     const { express_agency } = useSelector(state => state.agency);
     const { cities } = useSelector(state => state.city);
     const dispatch = useDispatch();
@@ -47,8 +55,21 @@ const AGCreateTrip = () => {
         if(cityTo === '') toast.error('Enter City To field.');
         if(cityFrom && cityTo) setTrips([...trips, { cityFrom, cityTo }]);
         
-        setCityFrom('');
+        setCityFrom(cityTo);
         setCityTo('');
+    }
+
+    const handleOnBusType = (type) => {
+        setBusType(type);
+        if(type === 'vip') setSeatsList(vipSeatsList);
+        else setSeatsList(normalSeatsList);
+    }
+
+    const handleOnSubmit = (event, next) => {
+        event.preventDefault();
+        const data = { agency: express_agency._id, busNumber, tripCode, tripName, trips, busType, seatsList, depart, arrive, price };
+        if(token) dispatch(createTripAction({ data, token }));
+        next();
     }
 
     if(!express_agency) return (
@@ -61,10 +82,29 @@ const AGCreateTrip = () => {
     return ( 
         <>
             <ToastContainer />
-            <form>
+            <form onSubmit={(e) => handleOnSubmit(e, () => history.push('/auth/agency'))}>
                 <Input type="text" label="Bus Number" name="bus_number" onChange={(e) => setBusNumber(e.target.value)} value={busNumber} required />
-                <Input type="text" label="Trip Name" name="trip_name" value={tripName} disabled required />
-                <Input type="text" label="Trip Code" name="trip_code" onChange={(e) => setTripCode(e.target.value)} value={tripCode} />
+                <Input type="text" label="Trip Name" name="trip_name" value={tripName} disabled required style={{ textTransform: 'capitalize' }} />
+                <Input type="text" label="Trip Code" name="trip_code" onChange={(e) => setTripCode(e.target.value)} value={tripCode} required />
+                <Input type="text" label="Price" name="price" onChange={(e) => setPrice(e.target.value)} value={price} required />
+                
+                <div className={styles.group__row}>
+                    <div className={styles.group__col}>
+                        <Input type="date" label="Depart Date" required value={depart.date} onChange={(e) => setDepart({...depart, date: e.target.value})} />
+                    </div>
+                    <div className={styles.group__col}>
+                        <Input type="time" label="Depart Time" required value={depart.time} onChange={(e) => setDepart({...depart, time: e.target.value})} />
+                    </div>
+                </div>
+
+                <div className={styles.group__row}>
+                    <div className={styles.group__col}>
+                        <Input type="date" label="Arrive Date" required value={arrive.date} onChange={(e) => setArrive({...arrive, date: e.target.value})} />
+                    </div>
+                    <div className={styles.group__col}>
+                        <Input type="time" label="Arrive Time" required value={arrive.time} onChange={(e) => setArrive({...arrive, time: e.target.value})} />
+                    </div>
+                </div>
                 
                 <div className={styles.groups}>
                     <label>Trips <b> &#8727;</b></label>
@@ -76,7 +116,7 @@ const AGCreateTrip = () => {
 
                     <div className={styles.group__row}>
                         <div className={styles.group__col}>
-                            <select className={styles.select} name="city_from" onChange={(e) => setCityFrom(e.target.value)} value={cityFrom}>
+                            <select className={styles.select} name="city_from" onChange={(e) => setCityFrom(e.target.value)} value={cityFrom} disabled={cityFrom?true:false}>
                                 <option value="">-- City From --</option>
                                 {renderCitiesOption(cities)}
                             </select>
@@ -88,6 +128,7 @@ const AGCreateTrip = () => {
                             </select>
                         </div>
                     </div>
+
                     <div className={styles.group__row}>
                         <Button onClick={handleOnInsertTrip} title="Add Trip" btnColor="danger" type="button" style={{ padding:"5px 10px" }} />
                     </div>
@@ -96,27 +137,16 @@ const AGCreateTrip = () => {
                 <div className={styles.groups}>
                     <label>Bus Type <b> &#8727;</b></label>
                     <div className={styles.bus__type}>
-                        <input id="bus_type_normal" type="radio" name="bus_type" value="normal" onChange={() => setBusType('normal')} />
+                        <input id="bus_type_normal" type="radio" name="bus_type" value="normal" onChange={() => handleOnBusType('normal')} />
                         <label htmlFor="bus_type_normal">Normal</label>
                     </div>
                     <div className={styles.bus__type}>
-                        <input id="bus_type_vip" type="radio" name="bus_type" value="vip" onChange={() => setBusType('vip')} />
+                        <input id="bus_type_vip" type="radio" name="bus_type" value="vip" onChange={() => handleOnBusType('vip')} />
                         <label htmlFor="bus_type_vip">VIP</label>
                     </div>
                 </div>
 
-                {
-                    busType && busType === 'normal' ?
-                    <div className={styles.groups}>
-                        <label>Bus Seat Normal</label>
-                    </div> : null
-                }
-                {
-                    busType && busType === 'vip' ?
-                    <div className={styles.groups}>
-                        <label>Bus Seat VIP</label>
-                    </div> : null
-                }
+                <Button type="submit" title="Create New Trip" />
             </form>
         </>
      );

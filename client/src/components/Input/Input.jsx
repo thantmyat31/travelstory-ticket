@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Input.module.css';
 
-const Input = ({ label, name, type, autoComplete, onChange, required, value, placeholder, defaultValue, disabled }) => {
+const Input = ({ label, name, type, autoComplete, onChange, required, value, placeholder, defaultValue, disabled, style }) => {
     return ( 
         <div className={styles.inputGroup}>
             <label htmlFor={name}>
@@ -19,6 +19,7 @@ const Input = ({ label, name, type, autoComplete, onChange, required, value, pla
                 placeholder={placeholder}
                 defaultValue={defaultValue}
                 disabled={disabled? true: false}
+                style={style}
             />
         </div>
      );
