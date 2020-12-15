@@ -4,8 +4,9 @@ import { getOwnAgencyAction } from '../../../../redux/agency/agency.action';
 import { getTripsByAgencyAction } from '../../../../redux/trip/trip.action';
 import { errorReset } from './../../../../redux/user/user.action';
 
+import TripsList from '../../../../components/TripsList/TripsList';
 import styles from './AGDetails.module.css';
-import CardRow from './../../../../components/CardRow/CardRow';
+
 
 const AGDetails = () => {
     const { user, token } = useSelector(state => state.user);
@@ -37,9 +38,6 @@ const AGDetails = () => {
     return ( 
         <>
             <div className={styles.container}>
-                <div className={styles.logo}>
-                    <img src={`${process.env.REACT_APP_IMAGE}/${express_agency.image}`} alt="Agency Logo" />
-                </div>
                 <div className={styles.details}>
                     <span>
                         <h3>{express_agency.name}</h3>
@@ -57,23 +55,12 @@ const AGDetails = () => {
                         {express_agency.addresses.map((address, index) => <p key={index}>{address.location} - {address.address}</p>)}
                     </span>
                 </div>
+                <div className={styles.logo}>
+                    <img src={`${process.env.REACT_APP_IMAGE}/${express_agency.image}`} alt="Agency Logo" />
+                </div>
             </div>
             <div className={styles.container}>
-            {
-                tripsByAgency && tripsByAgency.map((trip, index) => (
-                    <CardRow key={index}>
-                        <div>
-                            <h3>{trip.depart.time} {trip.busType}</h3>
-                            <p>{trip.tripName}</p>
-                            <p>Departs: {trip.depart.date}, {trip.depart.time} PM Afternoon</p>
-                            <p>Arrives: {trip.arrive.date}, {trip.arrive.time} AM   Duration: 15 Hours</p>
-                        </div>
-                        <div>
-                            <img width="100%" src={`${process.env.REACT_APP_IMAGE}/${trip.agency.image}`} />
-                        </div>
-                    </CardRow>
-                ))
-            }
+                <TripsList tripsList={tripsByAgency} />
             </div>
         </>
      );

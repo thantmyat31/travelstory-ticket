@@ -1,0 +1,40 @@
+.container {
+    width:33%;
+}
+
+.container h3 {
+    font-size:1.3rem;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.container h4 {
+    font-size: 1.3rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: #6B95A0;
+}
+
+.container p {
+    text-transform: capitalize;
+}
+
+.last {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+@media screen and (max-width:770px) {
+    .container {
+        width:100%;
+    }
+
+    .middle {
+        display:none;
+    }
+
+    .last {
+        align-items: flex-start;
+    }
+}
