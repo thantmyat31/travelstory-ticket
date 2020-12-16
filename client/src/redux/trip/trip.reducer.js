@@ -3,6 +3,7 @@ import { tripActionTypes } from './trip.type';
 const INITIAL_STATE = {
     trips: [],
     tripsByAgency: [],
+    tripById: undefined,
     loading: false,
     error: null
 }
@@ -48,6 +49,12 @@ const tripReducer = (state = INITIAL_STATE, action) => {
                 loading: false,
                 error: null,
                 trips: [...state.trips, action.payload]
+            }
+
+        case tripActionTypes.GET_TRIP_BY_ID:
+            return {
+                ...state,
+                tripById: state.trips.find(trip => trip._id === action.payload)
             }
 
         default:

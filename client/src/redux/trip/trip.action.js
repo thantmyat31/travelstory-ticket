@@ -59,3 +59,8 @@ export const createTripAction = ({ data, token }) => {
         })
     }
 }
+
+export const getTripById = (tripId) => ({
+    type: tripActionTypes.GET_TRIP_BY_ID,
+    payload: tripId
+});

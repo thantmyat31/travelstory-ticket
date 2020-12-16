@@ -24,7 +24,7 @@ const tripSchema = Schema({
     },
     busType: {
         type: String,
-        default: 'Normal',
+        default: 'normal',
         required: true
     },
     seatsList: {

@@ -32,7 +32,7 @@ exports.createTripValidator = [
         .withMessage('At least one set of seats list is required.')
         .custom(async (seatsList, {req}) => { 
             if(seatsList.type === 'vip') { 
-                if(seatsList.seats.length !== 30) {
+                if(seatsList.seats.length !== 31) {
                     throw new Error('The set of seats is wrong for VIP type.');
                 }
             } 

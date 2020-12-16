@@ -4,11 +4,11 @@ import { getOwnAgencyAction } from '../../../../redux/agency/agency.action';
 import { getTripsByAgencyAction } from '../../../../redux/trip/trip.action';
 import { errorReset } from './../../../../redux/user/user.action';
 
-import TripsList from '../../../../components/TripsList/TripsList';
+import Trip from '../../../../components/Trip/Trip';
 import styles from './AGDetails.module.css';
 
 
-const AGDetails = () => {
+const AGDetails = ({ history }) => {
     const { user, token } = useSelector(state => state.user);
     const { express_agency, error } = useSelector(state => state.agency);
     const { tripsByAgency } = useSelector(state => state.trip);
@@ -23,10 +23,8 @@ const AGDetails = () => {
     }, [dispatch, user, token]);
 
     useEffect(() => {
-        if(token) dispatch(getTripsByAgencyAction({ agencyId: express_agency._id, token }));
+        if(token && express_agency) dispatch(getTripsByAgencyAction({ agencyId: express_agency?._id, token }));
     }, [dispatch, token, express_agency]);
-
-    console.log(tripsByAgency)
 
     if(!express_agency) return (
         <div>
@@ -60,7 +58,13 @@ const AGDetails = () => {
                 </div>
             </div>
             <div className={styles.container}>
-                <TripsList tripsList={tripsByAgency} />
+            {
+                tripsByAgency && tripsByAgency.map((trip, index) => <Trip 
+                    key={index} 
+                    onClick={() => history.push(`/auth/agency/seats-plan/${trip._id}`)}
+                    trip={trip}
+                />)    
+            }
             </div>
         </>
      );

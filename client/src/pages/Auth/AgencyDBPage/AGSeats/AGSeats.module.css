@@ -1,0 +1,39 @@
+.seats__plan {
+    background:#fff;
+    box-shadow:0 2px 7px 0 #e6e6e6;
+}
+
+.seats__row {
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 10px;
+}
+
+.seats__row.driver__row {
+    padding:10px;
+}
+
+.seats__col {
+    width:22%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.driver__col {
+    width:100%;
+}
+
+.seats__col span {
+    width:100%;
+    background:#D0C1BD;
+    text-align: center;
+    padding:10px 0;
+    margin-bottom: 10px;
+    color:#fff;
+}
+
+.seats__col .driver__span {
+    margin-bottom:0;
+}

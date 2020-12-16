@@ -1,0 +1,13 @@
+.seat {
+    width:100%;
+    background:#D0C1BD;
+    text-align: center;
+    padding:10px 0;
+    margin-bottom: 10px;
+    cursor:pointer;
+    color:#fff;
+}
+
+.active {
+    background:#86959C;
+}

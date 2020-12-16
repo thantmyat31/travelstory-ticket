@@ -8,6 +8,7 @@ import AGCreateTrip from './AGCreateTrip/AGCreateTrip';
 
 import { BsFillGridFill, BsFileEarmarkPlus } from 'react-icons/bs';
 import { FaBus } from 'react-icons/fa';
+import AGSeats from './AGSeats/AGSeats';
 
 const AgencyDBPage = () => {
     const navLinks = [
@@ -19,7 +20,8 @@ const AgencyDBPage = () => {
     const routes = [
         { path: '/auth/agency', component: AGDetails },
         { path: '/auth/agency/new', component: AGNewForm },
-        { path: '/auth/agency/trip-create', component: AGCreateTrip }
+        { path: '/auth/agency/trip-create', component: AGCreateTrip },
+        { path: '/auth/agency/seats-plan/:tripId', component: AGSeats }
     ]
     
 
