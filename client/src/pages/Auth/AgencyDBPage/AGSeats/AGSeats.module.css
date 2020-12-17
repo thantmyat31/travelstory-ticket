@@ -37,3 +37,26 @@
 .seats__col .driver__span {
     margin-bottom:0;
 }
+
+.button {
+    justify-content: flex-end;
+    padding:20px 10px 10px;
+}
+
+.seat {
+    width:100%;
+    background:#D0C1BD;
+    text-align: center;
+    padding:10px 0;
+    margin-bottom: 10px;
+    cursor:pointer;
+    color:#fff;
+}
+
+.active {
+    background:#86959C;
+}
+
+.locked {
+    background:#555;
+}

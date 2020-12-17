@@ -64,3 +64,39 @@ export const getTripById = (tripId) => ({
     type: tripActionTypes.GET_TRIP_BY_ID,
     payload: tripId
 });
+
+export const updateSeatsAction = ({ selectedSeats, tripId }) => {
+    return (dispatch) => {
+        dispatch({ type: tripActionTypes.UPDATE_SEATS_START });
+        apiCall({
+            method: 'PUT',
+            url: `/trip/${tripId}`,
+            data: selectedSeats
+        })
+        .then(response => {
+            dispatch({ type: tripActionTypes.UPDATE_SEATS_SUCCESS, payload: response?.data });
+        })
+        .catch(error => {
+            dispatch({ type: tripActionTypes.UPDATE_SEATS_FAILURE, payload: error?.response?.data?.message });
+        })
+    }
+}
+
+export const tripDeleteAction = ({ tripId, token }) => {
+    return (dispatch) => {
+        dispatch({ type: tripActionTypes.TRIP_DELETE_START });
+        apiCall({
+            method: 'DELETE',
+            url: `/trip/${tripId}`,
+            headers: {
+                'x-auth-token': token
+            }
+        })
+        .then(response => {
+            dispatch({ type: tripActionTypes.TRIP_DELETE_SUCCESS, payload: response?.data });
+        })
+        .catch(error => {
+            dispatch({ type: tripActionTypes.TRIP_DELETE_FAILURE, payload: error?.response?.data?.message });
+        })
+    }
+}

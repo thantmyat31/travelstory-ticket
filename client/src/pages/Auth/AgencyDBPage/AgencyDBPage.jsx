@@ -1,16 +1,23 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 import DBLayout from '../../../components/DBLayout/DBLayout';
 import AGDetails from './AGDetails/AGDetails';
 import AGNewForm from './AGNewForm/AGNewForm';
 import AGCreateTrip from './AGCreateTrip/AGCreateTrip';
 
-
 import { BsFillGridFill, BsFileEarmarkPlus } from 'react-icons/bs';
 import { FaBus } from 'react-icons/fa';
 import AGSeats from './AGSeats/AGSeats';
+import { useDispatch } from 'react-redux';
+import { getAllTripsAction } from './../../../redux/trip/trip.action';
 
 const AgencyDBPage = () => {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getAllTripsAction());
+    }, [dispatch]);
+
     const navLinks = [
         { path: '/auth/agency', name: 'Dashboard', icon: <BsFillGridFill />  },
         { path: '/auth/agency/new', name: 'Add Agency', icon: <BsFileEarmarkPlus /> },

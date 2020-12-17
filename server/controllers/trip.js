@@ -43,3 +43,36 @@ exports.createTrip = (req, res) => {
             })
     })
 }
+
+exports.updateSeats = (req, res) => {
+    const selectedSeats = req.body;
+    Trip.findById(req.params.id)
+        .exec((error, trip) => {
+            if(error || !trip) return res.status(400).json({
+                message: 'Failed to select seats. Try again.'
+            });
+
+            const { type, seats } = trip.seatsList;
+            const newSeats = seats.map(s => selectedSeats.indexOf(s.number) !== -1 ? {...s, isValid: !s.isValid}: s);
+
+            Trip.findByIdAndUpdate(trip._id, { seatsList: {type, seats: newSeats} }, { new: true })
+                .exec((error, result) => {
+                    if(error || !result) return res.status(400).json({
+                        message: 'Something went wrong.'
+                    })
+                    
+                    return res.json(result);
+                })
+        })
+}
+
+exports.deleteTrip = (req, res) => {
+    Trip.findByIdAndDelete(req.params.id)
+        .exec((error, trip) => {
+            if(error || !trip) return res.status(400).json({
+                message: 'You can\'t delete the trip for this moment.'
+            })
+
+            return res.json(trip);
+        })
+}

@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getOwnAgencyAction } from '../../../../redux/agency/agency.action';
-import { getTripsByAgencyAction } from '../../../../redux/trip/trip.action';
+import { getTripsByAgencyAction, tripDeleteAction } from '../../../../redux/trip/trip.action';
 import { errorReset } from './../../../../redux/user/user.action';
 
 import Trip from '../../../../components/Trip/Trip';
@@ -25,6 +25,11 @@ const AGDetails = ({ history }) => {
     useEffect(() => {
         if(token && express_agency) dispatch(getTripsByAgencyAction({ agencyId: express_agency?._id, token }));
     }, [dispatch, token, express_agency]);
+
+    const handleOnDelete = (tripId) => {
+        if(tripId && token) dispatch(tripDeleteAction({tripId, token}));
+        else return;
+    }
 
     if(!express_agency) return (
         <div>
@@ -61,8 +66,9 @@ const AGDetails = ({ history }) => {
             {
                 tripsByAgency && tripsByAgency.map((trip, index) => <Trip 
                     key={index} 
-                    onClick={() => history.push(`/auth/agency/seats-plan/${trip._id}`)}
                     trip={trip}
+                    onClick={() => history.push(`/auth/agency/seats-plan/${trip._id}`)}
+                    onDelete={() => handleOnDelete(trip._id)}
                 />)    
             }
             </div>
