@@ -1,0 +1,21 @@
+.label {
+    width:100%;
+    margin-bottom:15px;
+}
+.select {
+    width:100%;
+    line-height: 30px;
+    height:30px;
+    border-color:#d6d6d6;
+    background-color: #f9f9f9;
+    text-transform: capitalize;
+}
+
+.select:focus {
+    outline: none;
+}
+
+.select option {
+    font-size: 1.2rem;
+    text-transform: capitalize;
+}

@@ -1,0 +1,90 @@
+.row {
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.col {
+    padding:10px;
+}
+
+.col__lt {
+    width:calc(60% - 20px);
+}
+
+.col__rt {
+    width:calc(40% - 20px);
+}
+
+.card {
+    background:#fff;
+    box-shadow: 0 2px 7px 0 #e6e6e6;
+    padding:20px;
+}
+
+.input__row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.input__col {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    width:48%;
+    margin-bottom: 10px;
+}
+
+.label {
+    width:100%;
+    margin-bottom:5px;
+}
+
+.select {
+    width:100%;
+    line-height: 30px;
+    height:30px;
+    border-color:#d6d6d6;
+    background-color: #f9f9f9;
+    text-transform: capitalize;
+}
+
+.select:focus {
+    outline: none;
+}
+
+.select option {
+    font-size: 1.2rem;
+    text-transform: capitalize;
+}
+
+.input {
+    display: block;
+    width:100%;
+    line-height:28px;
+    height:28px;
+    border:none;
+    border-bottom:1px solid #d6d6d6;
+    background:transparent;
+}
+
+.input:focus {
+    outline: none;
+    border-bottom:1px solid #00b5e4;
+    background:#fff;
+}
+
+.image {
+    width:100%;
+    height:204px;
+    object-fit: cover;
+}
+
+@media screen and (max-width:770px) {
+    .col__lt,
+    .col__rt {
+        width:100%;
+    }
+}

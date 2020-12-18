@@ -8,6 +8,8 @@
     flex-direction: row;
     justify-content: space-between;
     padding: 0 10px;
+    max-width:550px;
+    margin:auto;
 }
 
 .seats__row.driver__row {
