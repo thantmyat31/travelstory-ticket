@@ -1,0 +1,107 @@
+.page__row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding-bottom:20px;
+}
+
+.seats__container {
+    width:calc(55% - 10px);
+}
+
+.seats__rtSidebar {
+    width:calc(45% - 10px);
+}
+
+.seats__plan {
+    background:#fff;
+    box-shadow:0 2px 7px 0 #e6e6e6;
+}
+
+.seats__row {
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 10px;
+    max-width:550px;
+    margin:auto;
+}
+
+.seats__row.driver__row {
+    padding:10px;
+}
+
+.seats__col {
+    width:22%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.driver__col {
+    width:100%;
+}
+
+.seats__col span {
+    width:100%;
+    background:#D0C1BD;
+    text-align: center;
+    padding:10px 0;
+    margin-bottom: 10px;
+    color:#fff;
+}
+
+.seats__col .driver__span {
+    margin-bottom:0;
+}
+
+.button {
+    justify-content: flex-end;
+    padding:20px 10px 10px;
+}
+
+.seat {
+    width:100%;
+    background:#D0C1BD;
+    text-align: center;
+    padding:10px 0;
+    margin-bottom: 10px;
+    cursor:pointer;
+    color:#fff;
+}
+
+.active {
+    background:#86959C;
+}
+
+.locked {
+    background:#555;
+}
+
+.trip__info {
+    background:#fff;
+    padding:10px;
+    box-shadow: 0 2px 7px 0 #e6e6e6;
+}
+
+.table {
+    border-collapse: collapse;
+}
+
+.table tr:nth-child(odd) {
+    background:#e6e6e6;
+}
+
+.table td {
+    vertical-align: top;
+    padding:10px;
+}
+
+.table td.menu {
+    white-space: nowrap;
+}
+
+.table td.trip__name {
+    text-transform: capitalize;
+}

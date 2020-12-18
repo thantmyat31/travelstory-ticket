@@ -1,9 +1,11 @@
 import { tripActionTypes } from './trip.type';
+import { searchTrips } from './../../utils/trip.utils';
 
 const INITIAL_STATE = {
     trips: [],
     tripsByAgency: [],
     tripById: undefined,
+    searchResult: [],
     loading: false,
     error: null
 }
@@ -78,6 +80,14 @@ const tripReducer = (state = INITIAL_STATE, action) => {
                 error: null,
                 trips: state.trips.filter(t => t._id !== action.payload._id),
                 tripsByAgency: state.tripsByAgency.filter(t => t._id !== action.payload._id)
+            }
+
+        case tripActionTypes.SEARCH_TRIPS:
+            return {
+                ...state,
+                loading: false,
+                error: null,
+                searchResult: searchTrips({ data: action.payload, trips: state.trips })
             }
 
         default:

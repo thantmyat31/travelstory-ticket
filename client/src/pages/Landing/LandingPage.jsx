@@ -1,31 +1,49 @@
 import React, {useState} from 'react';
+import { searchTripsAction } from './../../redux/trip/trip.action';
+import { useDispatch, useSelector } from 'react-redux';
+
 import Layout from '../../components/Layout/Layout';
 import Button from './../../components/Button/Button';
 import CitiesSelector from '../../components/CitiesSelector/CitiesSelector';
 
+import useGetAllCities from './../../hooks/useGetAllCities';
 import styles from './LandingPage.module.css';
 import cx from 'classnames';
-import useGetAllCities from './../../hooks/useGetAllCities';
+import { ToastContainer, toast } from 'react-toastify';
+import Trip from './../../components/Trip/Trip';
 
-const LandingPage = () => {
+const LandingPage = ({ history }) => {
     const [ cityFrom, setCityFrom ] = useState('');
     const [ cityTo, setCityTo ] = useState('');
     const [ departDate, setDepartDate ] = useState('');
     const [ numberOfSeat, setNumberOfSeat ] = useState(1);
-    const [ nationality, setNationality ] = useState('')
+    const [ nationality, setNationality ] = useState('');
 
+    const { searchResult } = useSelector(state => state.trip);
+    const dispatch = useDispatch();
     const cities = useGetAllCities();
+
+    const dtToday = new Date();
+    let month = dtToday.getMonth() + 1;
+    let day = dtToday.getDate();
+    let year = dtToday.getFullYear();
+    if(month < 10) month = `0${month.toString()}`;
+    if(day < 10) day = `0${day.toString()}`;
+    const maxDate = `${year}-${month}-${day}`;
 
     const handleOnSubmit = () => {
         if(cityFrom === '' || cityTo === '' || departDate === '' || numberOfSeat === '' || nationality === '') {
+            toast.error('Enter all fields to search.')
             return;
         }
         const data = { cityFrom, cityTo, departDate, numberOfSeat, nationality };
-        console.log(data);
+        dispatch(searchTripsAction({data}));
+        toast.success('Success');
     }
 
     return ( 
         <Layout>
+            <ToastContainer />
             <div className="page">
                 <div className={styles.row}>
                     <div className={cx(styles.col, styles.col__lt)}>
@@ -54,6 +72,7 @@ const LandingPage = () => {
                                     <input 
                                         id="departDate"
                                         type="date" 
+                                        min={maxDate}
                                         value={departDate}
                                         className={styles.input}
                                         onChange={(e) => setDepartDate(e.target.value)} />
@@ -93,6 +112,13 @@ const LandingPage = () => {
                                 alt="advertisement" />
                         </div>
                     </div>
+                </div>
+                <div className={cx(styles.row, styles.result)}>
+                {
+                    searchResult && searchResult?.length ? 
+                        searchResult.map((trip, index) => <Trip key={index} trip={trip} onSelectSeat={() => history.push(`/select-seat/${trip._id}`)} />)
+                    : null
+                }
                 </div>
             </div>
         </Layout>

@@ -100,3 +100,8 @@ export const tripDeleteAction = ({ tripId, token }) => {
         })
     }
 }
+
+export const searchTripsAction = ({ data }) => ({ 
+    type: tripActionTypes.SEARCH_TRIPS,
+    payload: data
+});

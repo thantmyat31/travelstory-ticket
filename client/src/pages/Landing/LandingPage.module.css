@@ -5,6 +5,10 @@
     justify-content: space-between;
 }
 
+.result {
+    padding:10px;
+}
+
 .col {
     padding:10px;
 }

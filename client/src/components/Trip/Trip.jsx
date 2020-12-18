@@ -6,9 +6,11 @@ import styles from './Trip.module.css';
 import { getDateTimeString, getDuration, getTime } from './../../utils/dateTime.utils';
 import cx from 'classnames';
 import Popup from './../Popup/Popup';
+import { useLocation } from 'react-router-dom';
 
-const Trip = ({ trip, onClick, onDelete }) => {
+const Trip = ({ trip, onClick, onDelete, onSelectSeat }) => {
     const [ isPopupOpen, setIsPopupOpen ] = useState(false);
+    const location = useLocation();
 
     const handleOnDelete = () => {
         onDelete();
@@ -37,8 +39,17 @@ const Trip = ({ trip, onClick, onDelete }) => {
                 </div>
                 <div className={cx(styles.container, styles.last)}>
                     <h4>{trip.price} MMK</h4>
-                    <Button title="Select Seats" onClick={onClick} style={{ padding:'10px', marginTop: '10px', width: '125px' }} />
-                    <Button title="Delete Trip" btnColor="danger" onClick={() => setIsPopupOpen(true)} style={{ padding: '10px', marginTop: '10px', width: '125px' }} />
+                    {
+                        location.pathname === '/auth/agency' ?
+                        <>
+                            <Button title="Select Seats" onClick={onClick} style={{ padding:'10px', marginTop: '10px', width: '125px' }} />
+                            <Button title="Delete Trip" btnColor="danger" onClick={() => setIsPopupOpen(true)} style={{ padding: '10px', marginTop: '10px', width: '125px' }} />
+                        </> :
+                        <>
+                            <Button title="Select Seats" onClick={onSelectSeat} style={{ padding:'10px', marginTop: '10px', width: '125px' }} />
+                        </>
+                    }
+                    
                 </div>
             </CardRow>
             {isPopupOpen ? 
