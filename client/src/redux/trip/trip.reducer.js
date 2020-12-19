@@ -90,6 +90,12 @@ const tripReducer = (state = INITIAL_STATE, action) => {
                 searchResult: searchTrips({ data: action.payload, trips: state.trips })
             }
 
+        case tripActionTypes.CLEAR_SEARCH_TRIPS:
+            return {
+                ...state,
+                searchResult: []
+            }
+
         default:
             return state;
     }

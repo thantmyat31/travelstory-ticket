@@ -26,6 +26,16 @@ const ticketReducer = (state = INITIAL_STATE, action) => {
                 tripId: action.payload?.tripId
             }
 
+        case tripActionTypes.CLEAR_SEARCH_TRIPS:
+            return {
+                ...state,
+                numberOfTickets: 0,
+                nationality: 'myanmar',
+                selectedSeats: [],
+                tripId: undefined,
+                error: null
+            }
+
         default:
             return state;
     }

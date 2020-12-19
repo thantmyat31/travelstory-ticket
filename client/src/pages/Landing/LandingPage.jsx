@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import { searchTripsAction } from './../../redux/trip/trip.action';
+import React, {useState, useEffect} from 'react';
+import { clearSearchTripsAction, searchTripsAction } from './../../redux/trip/trip.action';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Layout from '../../components/Layout/Layout';
@@ -22,6 +22,10 @@ const LandingPage = ({ history }) => {
     const { searchResult } = useSelector(state => state.trip);
     const dispatch = useDispatch();
     const cities = useGetAllCities();
+
+    useEffect(() => {
+        dispatch(clearSearchTripsAction());
+    }, [dispatch]);
 
     const dtToday = new Date();
     let month = dtToday.getMonth() + 1;
