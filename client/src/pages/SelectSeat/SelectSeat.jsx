@@ -12,14 +12,16 @@ import { BsFillLockFill } from 'react-icons/bs';
 import Layout from '../../components/Layout/Layout';
 // import { updateSeatsAction } from './../../redux/trip/trip.action';
 import { getDateTimeString } from './../../utils/dateTime.utils';
+import { ToastContainer, toast } from 'react-toastify';
+import { selectSeatAction } from './../../redux/ticket/ticket.action';
 
-const SelectSeat = ({ match }) => {
+const SelectSeat = ({ match, history }) => {
     const tripId = match.params.tripId;
     const { tripById } = useSelector(state => state.trip);
+    const { numberOfTickets } = useSelector(state => state.ticket);
+
     const [ selectedSeats, setSelectedSeats ] = useState([]);
     const dispatch = useDispatch();
-
-    console.log(tripById);
 
     useEffect(() => {
         if(tripId) dispatch(getTripById(tripId));
@@ -38,7 +40,10 @@ const SelectSeat = ({ match }) => {
 
     const handleOnSelectSeat = (seat) => {
         const selected = selectedSeats.find(s => s === seat.number);
-        if(!selected) setSelectedSeats([...selectedSeats, seat.number]);
+        if(!selected) {
+            if(selectedSeats.length < numberOfTickets) setSelectedSeats([...selectedSeats, seat.number]);
+            else toast.error(`You can only select ${numberOfTickets} seat${numberOfTickets>1?'s.':'.'}`);
+        }
         else setSelectedSeats(selectedSeats.filter(s => s !== seat.number));
     }
 
@@ -49,8 +54,13 @@ const SelectSeat = ({ match }) => {
 
     const handleOnSubmit = () => {
         if(selectedSeats && tripId) {
+            if(selectedSeats.length === numberOfTickets) {
+                dispatch(selectSeatAction({selectedSeats, tripId}));
+                history.push(`/contact-info/${tripId}`);
+            }
+            else toast.error(`You need to select ${numberOfTickets} seat${numberOfTickets>0?'s.':'.'}`);
             // dispatch(updateSeatsAction({selectedSeats, tripId }));
-            setSelectedSeats([]);
+            // setSelectedSeats([]);
         }
         else return;
     }
@@ -63,10 +73,11 @@ const SelectSeat = ({ match }) => {
     
     return ( 
         <Layout>
+            <ToastContainer />
             <div className="page">
                 <div className={styles.page__row}>
                     <div className={styles.seats__container}>
-                        <Title title="Select 1 seat" style={{ marginTop:'0px', textTransform: 'initial' }} />
+                        <Title title={`Select ${numberOfTickets} seat${numberOfTickets>1?'s':''}`} style={{ marginTop:'0px', textTransform: 'initial' }} />
                         <div className={styles.seats__plan}>
                             <div className={cx(styles.seats__row, styles.driver__row)}>
                                 <div className={cx(styles.seats__col, styles.driver__col)}>

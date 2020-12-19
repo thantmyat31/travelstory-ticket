@@ -105,3 +105,8 @@ export const searchTripsAction = ({ data }) => ({
     type: tripActionTypes.SEARCH_TRIPS,
     payload: data
 });
+
+export const tripsFilterRunAction = ({ currentDate, currentTime }) => ({
+    type: tripActionTypes.TRIPS_FILTER_RUN,
+    payload: { currentDate, currentTime }
+});

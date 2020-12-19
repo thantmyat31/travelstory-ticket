@@ -22,4 +22,6 @@ export const tripActionTypes = {
     GET_TRIP_BY_ID: 'GET_TRIP_BY_ID',
     
     SEARCH_TRIPS: 'SEARCH_TRIPS',
+
+    TRIPS_FILTER_RUN: 'TRIPS_FILTER_RUN'
 }
