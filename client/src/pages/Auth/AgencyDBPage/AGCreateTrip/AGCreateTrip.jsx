@@ -83,10 +83,35 @@ const AGCreateTrip = ({ history }) => {
         <>
             <ToastContainer />
             <form onSubmit={(e) => handleOnSubmit(e, () => history.push('/auth/agency'))}>
-                <Input type="text" label="Bus Number" name="bus_number" onChange={(e) => setBusNumber(e.target.value)} value={busNumber} required />
-                <Input type="text" label="Trip Name" name="trip_name" value={tripName} disabled required style={{ textTransform: 'capitalize' }} />
-                <Input type="text" label="Trip Code" name="trip_code" onChange={(e) => setTripCode(e.target.value)} value={tripCode} required />
-                <Input type="text" label="Price" name="price" onChange={(e) => setPrice(e.target.value)} value={price} required />
+                <Input 
+                    type="text" 
+                    label="Bus Number" 
+                    name="bus_number" 
+                    onChange={(e) => setBusNumber(e.target.value)} 
+                    value={busNumber} 
+                    required />
+                <Input 
+                    type="text" 
+                    label="Trip Name" 
+                    name="trip_name" 
+                    value={tripName} 
+                    disabled 
+                    required 
+                    style={{ textTransform: 'capitalize' }} />
+                <Input 
+                    type="text" 
+                    label="Trip Code" 
+                    name="trip_code" 
+                    value={tripCode} 
+                    onChange={(e) => setTripCode(e.target.value)} 
+                    required />
+                <Input 
+                    type="text" 
+                    label="Price" 
+                    name="price" 
+                    onChange={(e) => setPrice(e.target.value)} 
+                    value={price} 
+                    required />
                 
                 <div className={styles.group__row}>
                     <div className={styles.group__col}>

@@ -1,16 +1,16 @@
 import React, {useState, useEffect} from 'react';
-import { clearSearchTripsAction, searchTripsAction } from './../../redux/trip/trip.action';
+import { clearSearchTripsAction, searchTripsAction, getAllTripsAction } from './../../redux/trip/trip.action';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Layout from '../../components/Layout/Layout';
 import Button from './../../components/Button/Button';
 import CitiesSelector from '../../components/CitiesSelector/CitiesSelector';
+import Trip from './../../components/Trip/Trip';
 
 import useGetAllCities from './../../hooks/useGetAllCities';
 import styles from './LandingPage.module.css';
 import cx from 'classnames';
 import { ToastContainer, toast } from 'react-toastify';
-import Trip from './../../components/Trip/Trip';
 
 const LandingPage = ({ history }) => {
     const [ cityFrom, setCityFrom ] = useState('');
@@ -25,6 +25,7 @@ const LandingPage = ({ history }) => {
 
     useEffect(() => {
         dispatch(clearSearchTripsAction());
+        dispatch(getAllTripsAction());
     }, [dispatch]);
 
     const dtToday = new Date();
@@ -42,7 +43,8 @@ const LandingPage = ({ history }) => {
         }
         const data = { cityFrom, cityTo, departDate, numberOfSeat, nationality };
         dispatch(searchTripsAction({data}));
-        toast.success('Success');
+        if(!searchResult.length) toast.warn('No trip.');
+        else toast.success(`${searchResult.length} result${searchResult>0?'s':''} found.`);
     }
 
     return ( 

@@ -1,5 +1,6 @@
 import { tripActionTypes } from './trip.type';
 import { searchTrips } from './../../utils/trip.utils';
+import { dateTimeDifferences } from '../../utils/dateTime.utils';
 
 const INITIAL_STATE = {
     trips: [],
@@ -38,7 +39,7 @@ const tripReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 loading: false,
                 error: null,
-                trips: action.payload
+                trips: dateTimeDifferences(action.payload)
             }
 
         case tripActionTypes.GET_TRIPS_BY_AGENCY_SUCCESS:
@@ -46,7 +47,7 @@ const tripReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 loading: false,
                 error: null,
-                tripsByAgency: action.payload
+                tripsByAgency: dateTimeDifferences(action.payload)
             }
 
         case tripActionTypes.TRIP_CREATE_SUCCESS:

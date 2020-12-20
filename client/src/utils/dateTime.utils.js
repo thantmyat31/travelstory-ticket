@@ -19,3 +19,19 @@ export const getDuration = ({ depart, arrive }) => {
     if(minutes > 0) return `${hours} Hours ${minutes} Minutes`;
     return `${hours} Hours`;
 }
+
+export const dateTimeDifferences = (trips) => {
+    const currentDate = moment().format('YYYY-MM-DD');
+    const currentTime = moment().format('hh:mm');
+    const currentMoment = moment(`${currentDate} ${currentTime}`);
+    let result = [];
+
+    trips.forEach(trip => {
+        const { date, time } = trip.depart;
+        const tripMoment = moment(`${date} ${time}`);
+        const diffByHours = tripMoment.diff(currentMoment, 'hours', true);
+        if(diffByHours > 0) result = [...result, trip];
+    });
+
+    return result;
+}
