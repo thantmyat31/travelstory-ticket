@@ -6,7 +6,7 @@ const INITIAL_STATE = {
     trips: [],
     tripsByAgency: [],
     tripById: undefined,
-    searchResult: [],
+    searchResult: undefined,
     loading: false,
     error: null
 }
@@ -94,7 +94,7 @@ const tripReducer = (state = INITIAL_STATE, action) => {
         case tripActionTypes.CLEAR_SEARCH_TRIPS:
             return {
                 ...state,
-                searchResult: []
+                searchResult: undefined
             }
 
         default:

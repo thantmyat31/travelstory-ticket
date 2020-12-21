@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const ticketSchema = Schema({
-    trip: {
+    tripId: {
         type: Schema.Types.ObjectId,
         ref: 'Trip',
         required: true
@@ -18,6 +18,10 @@ const ticketSchema = Schema({
     },
     contactInfo: {
         type: Object,
+        required: true
+    },
+    amount: {
+        type: Number,
         required: true
     }
 }, {

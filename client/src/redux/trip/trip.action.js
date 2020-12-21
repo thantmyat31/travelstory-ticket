@@ -108,8 +108,4 @@ export const searchTripsAction = ({ data }) => ({
 
 export const clearSearchTripsAction = () => ({
     type: tripActionTypes.CLEAR_SEARCH_TRIPS
-})
-
-export const tripsFilterRunAction = () => ({
-    type: tripActionTypes.TRIPS_FILTER_RUN
 });

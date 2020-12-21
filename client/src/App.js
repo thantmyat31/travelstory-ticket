@@ -17,6 +17,8 @@ import AdminRoute from './pages/Auth/AdminRoute';
 import AgencyRoute from './pages/Auth/AgencyRoute';
 import SelectSeat from './pages/SelectSeat/SelectSeat';
 import ContactInfo from './pages/ContactInfo/ContactInfo';
+import Payment from './pages/Payment/Payment';
+import Completion from './pages/Completion/Completion';
 
 
 const App = () => {
@@ -33,7 +35,9 @@ const App = () => {
 				<Route path="/register" component={RegisterPage} />
 				<Route path="/auth/activate/:token" component={ActivationPage} />
 				<Route exact path="/select-seat/:tripId" component={SelectSeat} />
-				<Route exact path="/contact-info/:tripId" component={ContactInfo} />
+				<Route exact path="/contact-info" component={ContactInfo} />
+				<Route exact path="/payment" component={Payment} />
+				<Route exact path="/completion" component={Completion} />
 				<Route exact path="/" component={LandingPage} />
 				<AuthRoute path="/auth/dashboard" component={UserDBPage} />
 				<AgencyRoute path="/auth/agency" component={AgencyDBPage} />

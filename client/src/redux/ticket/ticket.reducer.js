@@ -7,6 +7,7 @@ const INITIAL_STATE = {
     nationality: 'myanmar',
     selectedSeats: [],
     tripId: undefined,
+    contactInfo: undefined,
     error: null
 }
 
@@ -25,6 +26,12 @@ const ticketReducer = (state = INITIAL_STATE, action) => {
                 selectedSeats: action.payload?.selectedSeats,
                 tripId: action.payload?.tripId
             }
+        
+        case ticketActionTypes.ADD_CONTACT_INFO:
+            return {
+                ...state,
+                contactInfo: action.payload
+            }
 
         case tripActionTypes.CLEAR_SEARCH_TRIPS:
             return {
@@ -33,8 +40,11 @@ const ticketReducer = (state = INITIAL_STATE, action) => {
                 nationality: 'myanmar',
                 selectedSeats: [],
                 tripId: undefined,
+                contactInfo: undefined,
                 error: null
             }
+
+        
 
         default:
             return state;

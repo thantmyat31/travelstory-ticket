@@ -9,6 +9,7 @@ import styles from './AGCreateTrip.module.css';
 import { toast, ToastContainer } from 'react-toastify';
 import { vipSeatsList, normalSeatsList } from '../../../../config/seats';
 import { createTripAction } from './../../../../redux/trip/trip.action';
+import { maxDateForCalendar } from './../../../../utils/dateTime.utils';
 
 const AGCreateTrip = ({ history }) => {
     const [ busNumber, setBusNumber ] = useState('');
@@ -27,6 +28,7 @@ const AGCreateTrip = ({ history }) => {
     const { express_agency } = useSelector(state => state.agency);
     const { cities } = useSelector(state => state.city);
     const dispatch = useDispatch();
+    const maxDate = maxDateForCalendar();
 
     useEffect(() => {
         dispatch(getAllCitiesAction());
@@ -115,19 +117,41 @@ const AGCreateTrip = ({ history }) => {
                 
                 <div className={styles.group__row}>
                     <div className={styles.group__col}>
-                        <Input type="date" label="Depart Date" required value={depart.date} onChange={(e) => setDepart({...depart, date: e.target.value})} />
+                        <Input
+                            min={maxDate} 
+                            type="date" 
+                            label="Depart Date" 
+                            value={depart.date} 
+                            required 
+                            onChange={(e) => setDepart({...depart, date: e.target.value})} />
                     </div>
                     <div className={styles.group__col}>
-                        <Input type="time" label="Depart Time" required value={depart.time} onChange={(e) => setDepart({...depart, time: e.target.value})} />
+                        <Input 
+                            type="time" 
+                            label="Depart Time" 
+                            value={depart.time} 
+                            required 
+                            onChange={(e) => setDepart({...depart, time: e.target.value})} />
                     </div>
                 </div>
 
                 <div className={styles.group__row}>
                     <div className={styles.group__col}>
-                        <Input type="date" label="Arrive Date" required value={arrive.date} onChange={(e) => setArrive({...arrive, date: e.target.value})} />
+                        <Input 
+                            min={maxDate}
+                            type="date" 
+                            label="Arrive Date" 
+                            value={arrive.date} 
+                            required 
+                            onChange={(e) => setArrive({...arrive, date: e.target.value})} />
                     </div>
                     <div className={styles.group__col}>
-                        <Input type="time" label="Arrive Time" required value={arrive.time} onChange={(e) => setArrive({...arrive, time: e.target.value})} />
+                        <Input 
+                            type="time" 
+                            label="Arrive Time" 
+                            value={arrive.time} 
+                            required 
+                            onChange={(e) => setArrive({...arrive, time: e.target.value})} />
                     </div>
                 </div>
                 

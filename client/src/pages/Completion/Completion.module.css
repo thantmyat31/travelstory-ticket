@@ -1,0 +1,14 @@
+.container {
+    height:60vh;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background:#f6f6f6;
+}
+
+.container h3 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: 30px;
+}

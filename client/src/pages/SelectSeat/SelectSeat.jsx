@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTripById } from '../../redux/trip/trip.action';
+import { selectSeatAction } from './../../redux/ticket/ticket.action';
 
+import Layout from '../../components/Layout/Layout';
 import Button from '../../components/Button/Button';
 import Title from '../../components/Title/Title';
 
 import styles from './SelectSeat.module.css';
 import cx from 'classnames';
-import { filterSeatsAsAlphabat } from './../../utils/seats.utils';
 import { BsFillLockFill } from 'react-icons/bs';
-import Layout from '../../components/Layout/Layout';
-// import { updateSeatsAction } from './../../redux/trip/trip.action';
-import { getDateTimeString } from './../../utils/dateTime.utils';
 import { ToastContainer, toast } from 'react-toastify';
-import { selectSeatAction } from './../../redux/ticket/ticket.action';
+
+import { filterSeatsAsAlphabat } from './../../utils/seats.utils';
+import { getDateTimeString } from './../../utils/dateTime.utils';
 
 const SelectSeat = ({ match, history }) => {
     const tripId = match.params.tripId;
@@ -56,11 +56,9 @@ const SelectSeat = ({ match, history }) => {
         if(selectedSeats && tripId) {
             if(selectedSeats.length === numberOfTickets) {
                 dispatch(selectSeatAction({selectedSeats, tripId}));
-                history.push(`/contact-info/${tripId}`);
+                history.push(`/contact-info`);
             }
             else toast.error(`You need to select ${numberOfTickets} seat${numberOfTickets>0?'s.':'.'}`);
-            // dispatch(updateSeatsAction({selectedSeats, tripId }));
-            // setSelectedSeats([]);
         }
         else return;
     }

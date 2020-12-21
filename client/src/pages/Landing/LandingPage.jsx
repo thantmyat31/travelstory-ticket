@@ -11,6 +11,7 @@ import useGetAllCities from './../../hooks/useGetAllCities';
 import styles from './LandingPage.module.css';
 import cx from 'classnames';
 import { ToastContainer, toast } from 'react-toastify';
+import { maxDateForCalendar } from './../../utils/dateTime.utils';
 
 const LandingPage = ({ history }) => {
     const [ cityFrom, setCityFrom ] = useState('');
@@ -22,19 +23,12 @@ const LandingPage = ({ history }) => {
     const { searchResult } = useSelector(state => state.trip);
     const dispatch = useDispatch();
     const cities = useGetAllCities();
+    const maxDate = maxDateForCalendar();
 
     useEffect(() => {
         dispatch(clearSearchTripsAction());
         dispatch(getAllTripsAction());
     }, [dispatch]);
-
-    const dtToday = new Date();
-    let month = dtToday.getMonth() + 1;
-    let day = dtToday.getDate();
-    let year = dtToday.getFullYear();
-    if(month < 10) month = `0${month.toString()}`;
-    if(day < 10) day = `0${day.toString()}`;
-    const maxDate = `${year}-${month}-${day}`;
 
     const handleOnSubmit = () => {
         if(cityFrom === '' || cityTo === '' || departDate === '' || numberOfSeat === '' || nationality === '') {
@@ -43,8 +37,6 @@ const LandingPage = ({ history }) => {
         }
         const data = { cityFrom, cityTo, departDate, numberOfSeat, nationality };
         dispatch(searchTripsAction({data}));
-        if(!searchResult.length) toast.warn('No trip.');
-        else toast.success(`${searchResult.length} result${searchResult>0?'s':''} found.`);
     }
 
     return ( 
@@ -123,6 +115,11 @@ const LandingPage = ({ history }) => {
                 {
                     searchResult && searchResult?.length ? 
                         searchResult.map((trip, index) => <Trip key={index} trip={trip} onSelectSeat={() => history.push(`/select-seat/${trip._id}`)} />)
+                    : null
+                }
+                {
+                    searchResult && !searchResult.length ?
+                    <p className={styles.noTrip}>No trip found for current input.</p>
                     : null
                 }
                 </div>
