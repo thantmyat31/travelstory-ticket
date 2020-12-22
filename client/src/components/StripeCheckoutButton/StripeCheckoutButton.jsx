@@ -6,9 +6,11 @@ import { errorReset } from './../../redux/user/user.action';
 
 import StripeCheckout from 'react-stripe-checkout';
 import { ToastContainer, toast } from 'react-toastify';
+import useDollarXR from './../../hooks/useDollarXR';
  
 const StripeCheckoutButton = ({price, selectedSeats, tripId,...rest}) => {
-    const priceForStripe = (price/1350).toFixed(2) * 100;
+    const amountInDollar = useDollarXR(price);
+    const priceForStripe = amountInDollar * 100;
     const publishableKey = process.env.REACT_APP_STRIPE_KEY;
     const { boughtTicketInfo, error } = useSelector(state => state.ticket);
     const dispatch = useDispatch();
@@ -41,7 +43,7 @@ const StripeCheckoutButton = ({price, selectedSeats, tripId,...rest}) => {
                 label="Purchase Now"
                 name="Travel Stroy Ltd."
                 image={`${process.env.REACT_APP_IMAGE}/travelstory-logo.png`}
-                description={`Your total is $${(price/1350).toFixed(2)}.`}
+                description={`Your total is $${amountInDollar}.`}
                 amount={priceForStripe}
                 panelLabel="Pay Now"
                 token={onToken}

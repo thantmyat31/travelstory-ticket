@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { Redirect } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Layout from '../../components/Layout/Layout';
 import StripeCheckoutButton from '../../components/StripeCheckoutButton/StripeCheckoutButton';
@@ -9,16 +9,25 @@ import Title from './../../components/Title/Title';
 import styles from './Payment.module.css';
 import visaLogo from './../../assets/image/visa-icon.png';
 import cx from 'classnames';
+import useDollarXR from './../../hooks/useDollarXR';
+import { getExchangeRateAction } from './../../redux/exchange/exchange.action';
 
 const Payment = () => {
     const [ payment, setPayment ] = useState('');
     const { tripId, selectedSeats, numberOfTickets, nationality, contactInfo } = useSelector(state => state.ticket);
     const { tripById } = useSelector(state => state.trip);
-    let price = 0;
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(getExchangeRateAction());
+    }, [dispatch]);
     
+    let price = 0;
+    let amountInDollar = 0;
     if(tripId === tripById?._id) {
         price = tripById.price * numberOfTickets;
     } 
+    amountInDollar = useDollarXR(price);
 
     if(!tripId || !selectedSeats || !numberOfTickets || !nationality || !contactInfo || !tripById) return (
         <Redirect to="/" />
@@ -43,7 +52,7 @@ const Payment = () => {
                                     </li>
                                     <li>
                                         <span className={styles.title}>Sub total</span>
-                                        <span> {tripById.price * numberOfTickets} MMK</span>
+                                        <span> {price} MMK</span>
                                     </li>
                                 </ul>
                             </div>
@@ -74,11 +83,11 @@ const Payment = () => {
                                 <ul className={styles.list}>
                                     <li>
                                         <span className={styles.title}>Sub total</span>
-                                        <span> {tripById.price * numberOfTickets} MMK</span>
+                                        <span> {price} MMK</span>
                                     </li>
                                     <li>
                                         <span className={styles.title}>In USD</span>
-                                        <span> {((tripById.price * numberOfTickets) / 1350).toFixed(2)} USD</span>
+                                        <span> {amountInDollar} USD</span>
                                     </li>
                                 </ul>
                             </div>

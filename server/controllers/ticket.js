@@ -1,5 +1,4 @@
 const Ticket = require("./../model/ticket");
-const Trip = require("./../model/trip");
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 exports.checkoutPayment = (req, res) => {
