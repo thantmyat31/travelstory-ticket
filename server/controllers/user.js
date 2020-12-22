@@ -7,8 +7,10 @@ exports.getAllUsers = (req, res) => {
         })
         const allUsers = users.map((user) => {
             return {_id: user._id, displayName: user.displayName, email: user.email, role: user.role};
-        })
-        return res.status(200).json(allUsers);
+        });
+
+        const result = allUsers.filter(u => u.role !== 'master_admin');
+        return res.status(200).json(result);
     })
 }
 

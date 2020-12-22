@@ -77,3 +77,22 @@ export const getOwnAgencyAction = ({ id, token }) => {
         })
     }
 }
+
+export const getAllAgenciesAction = (token) => {
+    return (dispatch) => {
+        dispatch({ type: agencyActionTypes.GET_ALL_EXPRESS_AGENCY_START });
+        apiCall({
+            method: 'GET',
+            url: '/agency',
+            headers: {
+                'x-auth-token': token
+            }
+        })
+        .then(response => {
+            dispatch({ type: agencyActionTypes.GET_ALL_EXPRESS_AGENCY_SUCCESS, payload: response?.data });
+        })
+        .catch(error => {
+            dispatch({ types: agencyActionTypes.GET_ALL_EXPRESS_AGENCY_FAILURE, payload: error?.response?.data?.message });
+        })
+    }
+}

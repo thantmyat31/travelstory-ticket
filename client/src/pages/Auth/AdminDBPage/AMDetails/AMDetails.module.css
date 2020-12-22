@@ -1,0 +1,52 @@
+.row {
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.col {
+    width:33.333%;
+}
+
+.card {
+    margin:10px;
+    padding:10px;
+    background:#fff;
+    box-shadow: 0 2px 7px 0 #d6d6d6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color:#86959C;
+    color:#fff;
+}
+
+.danger {
+    background-color: #D0C1BD;
+}
+
+.card h3 {
+    font-weight:500;
+    font-size: 1rem;
+    margin:5px 0;
+}
+
+.card .icon {
+    font-size:2.5rem;
+}
+
+.card span {
+    font-size:1.5rem;
+}
+
+@media screen and (max-width:770px) {
+    .col {
+        width: 50%;
+    }
+}
+
+@media screen and (max-width:480px) {
+    .col {
+        width: 100%;
+    }
+}

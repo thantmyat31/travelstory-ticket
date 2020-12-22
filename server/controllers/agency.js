@@ -89,3 +89,15 @@ exports.getOwnAgency = (req, res) => {
             })
         })
 }
+
+exports.getAllAgencies = (req, res) => {
+    ExpressAgency.find()
+        .populate('owner')
+        .exec((error, agencies) => {
+            if(error || !agencies.length) return res.status(400).json({
+                message: 'Something went wrong.'
+            });
+
+            return res.status(200).json(agencies);
+        })
+}

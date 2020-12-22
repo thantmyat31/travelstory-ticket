@@ -19,3 +19,13 @@ export const filterSeatsAsAlphabat = (list) => {
     }
     else return [];
 }
+
+export const getValidSeats = (trips) => {
+    let seats = [];
+    trips.forEach(trip => {
+        const seatsList = trip?.seatsList?.seats.filter(s => s.isValid);
+        seats = [...seats, ...seatsList];
+    });
+
+    return seats.length;
+}
