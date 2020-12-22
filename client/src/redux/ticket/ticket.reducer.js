@@ -1,5 +1,6 @@
 import { ticketActionTypes } from './ticket.type';
 import { tripActionTypes } from './../trip/trip.type';
+import { userActionTypes } from './../user/user.type';
 
 
 const INITIAL_STATE = {
@@ -8,16 +9,31 @@ const INITIAL_STATE = {
     selectedSeats: [],
     tripId: undefined,
     contactInfo: undefined,
+    boughtTicketInfo: undefined,
+    loading: false,
     error: null
 }
 
 const ticketReducer = (state = INITIAL_STATE, action) => {
     switch(action.type) {
-        case tripActionTypes.SEARCH_TRIPS:
+        case ticketActionTypes.MAKE_PAYMENT_START:
             return {
                 ...state,
-                numberOfTickets: action?.payload?.numberOfSeat,
-                nationality: action?.payload?.nationality
+                loading: true
+            }
+
+        case ticketActionTypes.MAKE_PAYMENT_FAILURE: 
+            return {
+                ...state,
+                loading: false,
+                error: action.payload
+            }
+
+        case ticketActionTypes.MAKE_PAYMENT_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                boughtTicketInfo: action.payload
             }
 
         case ticketActionTypes.SELECT_SEATS:
@@ -33,6 +49,13 @@ const ticketReducer = (state = INITIAL_STATE, action) => {
                 contactInfo: action.payload
             }
 
+        case tripActionTypes.SEARCH_TRIPS:
+            return {
+                ...state,
+                numberOfTickets: action?.payload?.numberOfSeat,
+                nationality: action?.payload?.nationality
+            }
+
         case tripActionTypes.CLEAR_SEARCH_TRIPS:
             return {
                 ...state,
@@ -41,10 +64,17 @@ const ticketReducer = (state = INITIAL_STATE, action) => {
                 selectedSeats: [],
                 tripId: undefined,
                 contactInfo: undefined,
+                boughtTicketInfo: undefined,
+                loading: false,
                 error: null
             }
 
-        
+        case userActionTypes.ERROR_RESET:
+            return {
+                ...state,
+                loading: false,
+                error: null
+            }
 
         default:
             return state;

@@ -23,5 +23,13 @@ exports.buyTicketValidator = [
             if(contactInfo.name === '' || contactInfo.gender === '' || contactInfo.phone === ''){ 
                 throw new Error('You need to insert all fields with red astris.') 
             } 
-        })
+        }),
+    check('amount')
+        .not()
+        .isEmpty()
+        .withMessage('Amount field is not allowed as empty'),
+    check('price')
+        .not()
+        .isEmpty()
+        .withMessage('Price field is not allowed as empty')
 ]

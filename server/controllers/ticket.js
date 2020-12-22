@@ -11,16 +11,17 @@ exports.checkoutPayment = (req, res) => {
 
 	stripe.charges.create(data, (stripeErr, stripeRes) => {
 		if (stripeErr) {
-			res.status(500).send({ message: stripeErr });
+			res.status(500).json({ message: stripeErr });
 		} else {
+			req.body.amount = req.body.amount / 100;
             const newTicket = new Ticket(req.body);
             
             newTicket.save((error, ticket) => {
                 if(error || !ticket) return res.status(500).json({
                     message: 'Something went wrong. Try again.'
-                });
+				});
 
-                return res.status(200).json({ success: true });
+                return res.status(201).json(ticket);
             });
 			
 		}
