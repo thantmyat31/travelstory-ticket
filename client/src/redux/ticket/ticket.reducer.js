@@ -10,6 +10,7 @@ const INITIAL_STATE = {
     tripId: undefined,
     contactInfo: undefined,
     boughtTicketInfo: undefined,
+    completeToken: undefined,
     loading: false,
     error: null
 }
@@ -17,6 +18,7 @@ const INITIAL_STATE = {
 const ticketReducer = (state = INITIAL_STATE, action) => {
     switch(action.type) {
         case ticketActionTypes.MAKE_PAYMENT_START:
+        case ticketActionTypes.CHECK_COMPLETE_TOKEN_START:
             return {
                 ...state,
                 loading: true
@@ -29,11 +31,19 @@ const ticketReducer = (state = INITIAL_STATE, action) => {
                 error: action.payload
             }
 
+        case ticketActionTypes.CHECK_COMPLETE_TOKEN_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                completeToken: undefined
+            }
+
         case ticketActionTypes.MAKE_PAYMENT_SUCCESS:
             return {
                 ...state,
                 loading: false,
-                boughtTicketInfo: action.payload
+                boughtTicketInfo: action.payload?.ticket,
+                completeToken: action.payload?.completeToken
             }
 
         case ticketActionTypes.SELECT_SEATS:
@@ -47,6 +57,13 @@ const ticketReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 contactInfo: action.payload
+            }
+
+        case ticketActionTypes.CHECK_COMPLETE_TOKEN_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                completeToken: action.payload
             }
 
         case tripActionTypes.SEARCH_TRIPS:

@@ -38,7 +38,7 @@ const LoginPage = () => {
 				isAuth && user?.role === 'master_admin' ? 
 				<Redirect to="/auth/admin" /> : 
 				isAuth && user?.role === 'subscriber' ?
-				<Redirect to="/auth/dashboard" /> :
+				<Redirect to="/auth/subscriber" /> :
 				isAuth && user?.role === 'agency' ?
 				<Redirect to="/auth/agency" /> : null
 			}

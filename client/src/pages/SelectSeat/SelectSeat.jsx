@@ -14,6 +14,7 @@ import { ToastContainer, toast } from 'react-toastify';
 
 import { filterSeatsAsAlphabat } from './../../utils/seats.utils';
 import { getDateTimeString } from './../../utils/dateTime.utils';
+import { Redirect } from 'react-router-dom';
 
 const SelectSeat = ({ match, history }) => {
     const tripId = match.params.tripId;
@@ -63,11 +64,9 @@ const SelectSeat = ({ match, history }) => {
         else return;
     }
 
-    if(!tripById) return (
-        <div>
-            Loading...
-        </div>
-    )
+    if(!tripById || numberOfTickets === 0) return (
+        <Redirect to="/" />
+    );
     
     return ( 
         <Layout>
@@ -164,7 +163,7 @@ const SelectSeat = ({ match, history }) => {
                             </table>
 
                             <div  className={cx(styles.seats__row, styles.button)}>
-                                <Button title="Update Seats Plan" onClick={handleOnSubmit} />
+                                <Button title="Confirm Seats" onClick={handleOnSubmit} />
                             </div>
                         </div>
                     </div>

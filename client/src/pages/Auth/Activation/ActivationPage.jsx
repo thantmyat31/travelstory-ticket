@@ -41,7 +41,7 @@ const ActivationPage = ({ match, history }) => {
     }
 
     if(isAuth) {
-        setTimeout(() => history.push("/auth/dashboard"), 5000)
+        setTimeout(() => history.push("/auth/subscriber"), 5000)
         return (
             <Layout>
                 <div className={styles.container}>

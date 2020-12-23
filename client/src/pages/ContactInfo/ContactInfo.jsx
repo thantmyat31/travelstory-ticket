@@ -88,7 +88,7 @@ const ContactInfo = ({ history }) => {
                                         onChange={(e) => setContactInfo({...contactInfo, note: e.target.value})}></textarea>
                                 </div>
                                 <div className={styles.inputGroup}>
-                                    <Button title="Submit" type="submit" />
+                                    <Button title="Add Contact Information" type="submit" />
                                 </div>
                             </form>
                         </div>

@@ -12,7 +12,7 @@ const StripeCheckoutButton = ({price, selectedSeats, tripId,...rest}) => {
     const amountInDollar = useDollarXR(price);
     const priceForStripe = amountInDollar * 100;
     const publishableKey = process.env.REACT_APP_STRIPE_KEY;
-    const { boughtTicketInfo, error } = useSelector(state => state.ticket);
+    const { completeToken, error } = useSelector(state => state.ticket);
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -22,8 +22,8 @@ const StripeCheckoutButton = ({price, selectedSeats, tripId,...rest}) => {
     }, [dispatch, error]);
 
     useEffect(() => {
-        if(boughtTicketInfo) history.push('/completion');
-    }, [boughtTicketInfo, history]);
+        if(completeToken) history.push('/completion');
+    }, [completeToken, history]);
 
     const onToken = (token) => {
         dispatch(makePaymentAction({

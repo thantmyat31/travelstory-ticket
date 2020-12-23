@@ -8,7 +8,7 @@ import LoginPage from './pages/Auth/Login/Login.page';
 import RegisterPage from './pages/Auth/Register/Register.page';
 import NotFoundPage from './pages/NotFound/NotFound.page';
 import ActivationPage from './pages/Auth/Activation/ActivationPage';
-import UserDBPage from './pages/Auth/UserDBPage/UserDBPage';
+import SubscriberDBPage from './pages/Auth/SubscriberDBPage/SubscriberDBPage';
 import AdminDBPage from './pages/Auth/AdminDBPage/AdminDBPage';
 import AgencyDBPage from './pages/Auth/AgencyDBPage/AgencyDBPage';
 
@@ -39,7 +39,7 @@ const App = () => {
 				<Route exact path="/payment" component={Payment} />
 				<Route exact path="/completion" component={Completion} />
 				<Route exact path="/" component={LandingPage} />
-				<AuthRoute path="/auth/dashboard" component={UserDBPage} />
+				<AuthRoute path="/auth/subscriber" component={SubscriberDBPage} />
 				<AgencyRoute path="/auth/agency" component={AgencyDBPage} />
 				<AdminRoute path="/auth/admin" component={AdminDBPage} />
 				<Route path="*" component={NotFoundPage} />

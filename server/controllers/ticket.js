@@ -1,4 +1,5 @@
 const Ticket = require("./../model/ticket");
+const jwt = require('jsonwebtoken');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 exports.checkoutPayment = (req, res) => {
@@ -20,9 +21,28 @@ exports.checkoutPayment = (req, res) => {
                     message: 'Something went wrong. Try again.'
 				});
 
-                return res.status(201).json(ticket);
+				const completeToken = jwt.sign({ _id: ticket._id }, process.env.JWT_SECRET, { expiresIn: '1m' });
+
+                return res.status(201).json({ticket, completeToken});
             });
 			
 		}
 	});
+}
+
+exports.checkCompleteToken = (req, res) => {
+	const { token: completeToken} = req.body;
+	try {
+		const verified = jwt.verify(completeToken, process.env.JWT_SECRET);
+
+		if(!verified) return res.status(401).json({
+			message: 'Token verification failed.'
+		});
+
+		return res.status(200).json(completeToken);
+	} catch (error) {
+		return res.status(500).json({
+			message: 'Token verification failed.'
+		});
+	}
 }

@@ -6,7 +6,7 @@
 .gear__smallscreen {
     display: flex;
     align-items: center;
-    background:rgba(0,0,0,0.5);    
+    background:#86959C;    
     display:none;
     height:50px;
 }

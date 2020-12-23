@@ -12,6 +12,7 @@ import { getAllTripsAction } from './../../../../redux/trip/trip.action';
 import { getValidSeats } from '../../../../utils/seats.utils';
 import styles from './AMDetails.module.css';
 import cx from 'classnames';
+import CountUp from 'react-countup';
 
 const AMDetails = () => {
     const { users } = useSelector(state => state.admin);
@@ -40,42 +41,42 @@ const AMDetails = () => {
                         <div className={styles.card}>
                             <BsPeopleFill className={styles.icon} />
                             <h3>Users</h3>
-                            <span>{users?.length}</span>
+                            <span><CountUp start={0} end={users?.length} duration={2} separator="," /></span>
                         </div>
                     </div>
                     <div className={styles.col}>
                         <div className={styles.card}>
                             <BsBuilding className={styles.icon} />
                             <h3>Cities</h3>
-                            <span>{cities?.length}</span>
+                            <span><CountUp start={0} end={cities?.length} duration={2} separator="," /></span>
                         </div>
                     </div>
                     <div className={styles.col}>
                         <div className={styles.card}>
                             <FaExchangeAlt className={styles.icon} />
                             <h3>$ Exchange Rate</h3>
-                            <span>{exchangeRate?.dollarXR} MMK</span>
+                            <span><CountUp start={0} end={exchangeRate?.dollarXR} duration={2} separator="," /></span>
                         </div>
                     </div>
                     <div className={styles.col}>
                         <div className={cx(styles.card, styles.danger)}>
                             <BsBriefcaseFill className={styles.icon} />
                             <h3>Agencies</h3>
-                            <span>{express_agencies?.length}</span>
+                            <span><CountUp start={0} end={express_agencies?.length} duration={2} separator="," /></span>
                         </div>
                     </div>
                     <div className={styles.col}>
                         <div className={cx(styles.card, styles.danger)}>
                             <FaBus className={styles.icon} />
                             <h3>Valid Trips</h3>
-                            <span>{trips?.length}</span>
+                            <span><CountUp start={0} end={trips?.length} duration={2} separator="," /></span>
                         </div>
                     </div>
                     <div className={styles.col}>
                         <div className={cx(styles.card, styles.danger)}>
                             <MdAirlineSeatReclineNormal className={styles.icon} />
                             <h3>Valid Seats</h3>
-                            <span>{getValidSeats(trips)}</span>
+                            <span><CountUp start={0} end={getValidSeats(trips)} duration={2} separator="," /></span>
                         </div>
                     </div>
                 </div>

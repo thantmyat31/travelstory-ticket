@@ -59,7 +59,7 @@ const Header = () => {
 								<Link className={styles.link} to="/auth/agency">
 									Dashboard
 								</Link>:
-								<Link className={styles.link} to="/auth/dashboard">
+								<Link className={styles.link} to="/auth/subscriber">
 									Dashboard
 								</Link>
 							}
@@ -96,7 +96,7 @@ const Header = () => {
 								<Link className={styles.link} to="/auth/agency">
 									Dashboard
 								</Link>:
-								<Link className={styles.link} to="/auth/dashboard">
+								<Link className={styles.link} to="/auth/subscriber">
 									Dashboard
 								</Link>
 							}

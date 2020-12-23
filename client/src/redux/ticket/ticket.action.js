@@ -36,3 +36,22 @@ export const makePaymentAction = (data) => {
         })
     }
 }
+
+export const checkCompleteTokenAction = (token) => {
+    return (dispatch) => {
+        dispatch({ type: ticketActionTypes.CHECK_COMPLETE_TOKEN_START });
+        apiCall({
+            method: 'POST',
+            url: `/ticket/check-token`,
+            data: {token}
+        })
+        .then(response => {
+            console.log(response?.data);
+            dispatch({ type: ticketActionTypes.CHECK_COMPLETE_TOKEN_SUCCESS, payload: response?.data });
+        })
+        .catch(error => {
+            console.log(error?.response?.data?.message)
+            dispatch({ type: ticketActionTypes.CHECK_COMPLETE_TOKEN_FAILURE, payload: error?.response?.data?.message });
+        })
+    }
+}
