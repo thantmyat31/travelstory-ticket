@@ -1,5 +1,6 @@
 .container {
     width:33%;
+    color:#333;
 }
 
 .container h3 {
@@ -23,6 +24,35 @@
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+}
+
+.last h5 {
+    font-weight:500;
+    font-size:1.2rem;
+    text-transform: capitalize;
+    margin:5px 0;
+    color:#6B95A0;
+}
+
+.last .valid__seats {
+    text-transform: capitalize;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.last .valid__seats b {
+    font-size:1.4rem;
+    font-weight: 500;
+    color:#fff;
+    background:#ff6600;
+    border-radius: 50%;
+    width:40px;
+    height:40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left:10px;
 }
 
 @media screen and (max-width:770px) {

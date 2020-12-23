@@ -7,8 +7,9 @@ import { getDateTimeString, getDuration, getTime } from './../../utils/dateTime.
 import cx from 'classnames';
 import Popup from './../Popup/Popup';
 import { useLocation } from 'react-router-dom';
+import { getValidSeats } from '../../utils/seats.utils';
 
-const Trip = ({ trip, onClick, onDelete, onSelectSeat }) => {
+const Trip = ({ trip, onClick, onDelete, onSelectSeat, style, isAdmin }) => {
     const [ isPopupOpen, setIsPopupOpen ] = useState(false);
     const location = useLocation();
 
@@ -18,7 +19,7 @@ const Trip = ({ trip, onClick, onDelete, onSelectSeat }) => {
     }
     return (
         <>
-            <CardRow style={{ width:'100%' }}>
+            <CardRow style={style}>
                 <div className={styles.container}>
                     <h3>{getTime(trip.depart.time)} - {trip.busType}</h3>
                     <p>{trip.tripName}</p>
@@ -39,15 +40,23 @@ const Trip = ({ trip, onClick, onDelete, onSelectSeat }) => {
                 </div>
                 <div className={cx(styles.container, styles.last)}>
                     <h4>{trip.price} MMK</h4>
-                    {
-                        location.pathname === '/auth/agency' ?
-                        <>
-                            <Button title="Select Seats" onClick={onClick} style={{ padding:'10px', marginTop: '10px', width: '125px' }} />
-                            <Button title="Delete Trip" btnColor="danger" onClick={() => setIsPopupOpen(true)} style={{ padding: '10px', marginTop: '10px', width: '125px' }} />
-                        </> :
-                        <>
-                            <Button title="Select Seats" onClick={onSelectSeat} style={{ padding:'10px', marginTop: '10px', width: '125px' }} />
-                        </>
+                    {isAdmin ? 
+                        (
+                            <>
+                                <h5>{trip.agency.name}</h5>
+                                <span className={styles.valid__seats}>Valid seats <b>{getValidSeats([trip])}</b></span>
+                            </>
+                        )
+                        :(
+                            location.pathname === '/auth/agency' ?
+                            <>
+                                <Button title="Select Seats" onClick={onClick} style={{ padding:'10px', marginTop: '10px', width: '125px' }} />
+                                <Button title="Delete Trip" btnColor="danger" onClick={() => setIsPopupOpen(true)} style={{ padding: '10px', marginTop: '10px', width: '125px' }} />
+                            </> :
+                            <>
+                                <Button title="Select Seats" onClick={onSelectSeat} style={{ padding:'10px', marginTop: '10px', width: '125px' }} />
+                            </>
+                        )
                     }
                     
                 </div>

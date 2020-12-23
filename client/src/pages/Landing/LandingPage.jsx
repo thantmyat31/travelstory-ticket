@@ -114,7 +114,11 @@ const LandingPage = ({ history }) => {
                 <div className={cx(styles.row, styles.result)}>
                 {
                     searchResult && searchResult?.length ? 
-                        searchResult.map((trip, index) => <Trip key={index} trip={trip} onSelectSeat={() => history.push(`/select-seat/${trip._id}`)} />)
+                        searchResult.map((trip, index) => <Trip 
+                            key={index} 
+                            trip={trip} 
+                            onSelectSeat={() => history.push(`/select-seat/${trip._id}`)}
+                            style={{ width:'100%' }} />)
                     : null
                 }
                 {

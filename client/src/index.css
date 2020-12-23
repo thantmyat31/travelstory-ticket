@@ -33,6 +33,10 @@ a {
   margin:40px auto;
 }
 
+img {
+  width:100%;
+}
+
 @media screen and (max-width:770px) {
   .app {
     height: calc(100vh - 48.8px);

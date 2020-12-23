@@ -4,32 +4,3 @@
     flex-wrap: wrap;
     justify-content: space-between;
 }
-
-.logo {
-    max-width:40%;
-}
-
-img {
-    width:100%;
-}
-
-.details {
-    max-width:calc(60% - 15px);
-    min-width: 50%;
-    margin-left:15px;
-}
-
-.details span {
-    display: block;
-    margin-bottom:15px;
-}
-
-@media screen and (max-width:480px) {
-    .logo,
-    .details {
-        width:100%;
-        max-width: 100%;
-        min-width: 100%;
-        margin-left:0;
-    }
-}

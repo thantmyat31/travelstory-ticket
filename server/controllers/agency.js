@@ -98,6 +98,16 @@ exports.getAllAgencies = (req, res) => {
                 message: 'Something went wrong.'
             });
 
+            agencies.forEach(agency => {
+                agency.owner.hashed_password = undefined;
+                agency.owner.createdAt = undefined;
+                agency.owner.updatedAt = undefined;
+                agency.owner.__v = undefined;
+                agency.createdAt = undefined;
+                agency.updatedAt = undefined;
+                agency.__v = undefined;
+            });
+
             return res.status(200).json(agencies);
         })
 }
