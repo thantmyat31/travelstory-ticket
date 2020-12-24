@@ -42,7 +42,7 @@ const StripeCheckoutButton = ({price, selectedSeats, tripId,...rest}) => {
             <StripeCheckout
                 label="Purchase Now"
                 name="Travel Stroy Ltd."
-                image={`${process.env.REACT_APP_IMAGE}/travelstory-logo.png`}
+                image={`${process.env.REACT_APP_IMAGE}/constants/travelstory-logo.png`}
                 description={`Your total is $${amountInDollar}.`}
                 amount={priceForStripe}
                 panelLabel="Pay Now"

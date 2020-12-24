@@ -95,7 +95,7 @@ const ContactInfo = ({ history }) => {
                     </div>
                     <div className={styles.ads}>
                         <div className={styles.card}>
-                            <img src={`${process.env.REACT_APP_IMAGE}/ads.png`} alt="Ads" />
+                            <img src={`${process.env.REACT_APP_IMAGE}/constants/ads.png`} alt="Ads" />
                         </div>
                     </div>
                 </div>

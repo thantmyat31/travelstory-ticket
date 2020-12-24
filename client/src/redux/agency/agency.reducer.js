@@ -28,12 +28,19 @@ const agencyReducer = (state = INITIAL_STATE, action) => {
             }
 
         case agencyActionTypes.CREATE_EXPRESS_AGENCY_FAILURE:
-        case agencyActionTypes.GET_OWN_EXPRESS_AGENCY_FAILURE:
         case agencyActionTypes.GET_ALL_EXPRESS_AGENCY_FAILURE:
             return {
                 ...state,
                 loading: false,
                 error: action.payload
+            }
+        
+        case agencyActionTypes.GET_OWN_EXPRESS_AGENCY_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload,
+                express_agency: undefined
             }
 
         case agencyActionTypes.CREATE_EXPRESS_AGENCY_SUCCESS:

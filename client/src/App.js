@@ -19,6 +19,7 @@ import SelectSeat from './pages/SelectSeat/SelectSeat';
 import ContactInfo from './pages/ContactInfo/ContactInfo';
 import Payment from './pages/Payment/Payment';
 import Completion from './pages/Completion/Completion';
+import Print from './pages/Print/Print';
 
 
 const App = () => {
@@ -38,6 +39,7 @@ const App = () => {
 				<Route exact path="/contact-info" component={ContactInfo} />
 				<Route exact path="/payment" component={Payment} />
 				<Route exact path="/completion" component={Completion} />
+				<Route exact path="/print" component={Print} />
 				<Route exact path="/" component={LandingPage} />
 				<AuthRoute path="/auth/subscriber" component={SubscriberDBPage} />
 				<AgencyRoute path="/auth/agency" component={AgencyDBPage} />

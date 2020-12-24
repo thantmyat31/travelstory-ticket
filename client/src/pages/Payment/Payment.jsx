@@ -14,7 +14,7 @@ import { getExchangeRateAction } from './../../redux/exchange/exchange.action';
 
 const Payment = () => {
     const [ payment, setPayment ] = useState('');
-    const { tripId, selectedSeats, numberOfTickets, nationality, contactInfo } = useSelector(state => state.ticket);
+    const { cityFrom, cityTo, tripId, selectedSeats, numberOfTickets, nationality, contactInfo } = useSelector(state => state.ticket);
     const { tripById } = useSelector(state => state.trip);
     const dispatch = useDispatch()
 
@@ -29,7 +29,7 @@ const Payment = () => {
     } 
     amountInDollar = useDollarXR(price);
 
-    if(!tripId || !selectedSeats || !numberOfTickets || !nationality || !contactInfo || !tripById) return (
+    if(!cityFrom || !cityTo || !tripId || !selectedSeats || !numberOfTickets || !nationality || !contactInfo || !tripById) return (
         <Redirect to="/" />
     )
 
@@ -115,6 +115,8 @@ const Payment = () => {
                                 {payment && payment === 'visa' ? 
                                     <span className={styles.methods}>
                                         <StripeCheckoutButton 
+                                            cityFrom={cityFrom}
+                                            cityTo={cityTo}
                                             tripId={tripId}
                                             selectedSeats={selectedSeats}
                                             nationality={nationality}
@@ -125,7 +127,7 @@ const Payment = () => {
                             </div>
 
                             <div className={cx(styles.card, styles.ads)}>
-                                <img src={`${process.env.REACT_APP_IMAGE}/ads.png`} alt="ads" />
+                                <img src={`${process.env.REACT_APP_IMAGE}/constants/ads.png`} alt="ads" />
                             </div>
                         </div>
                     </div>

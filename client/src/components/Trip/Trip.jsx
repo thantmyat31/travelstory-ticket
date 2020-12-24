@@ -17,6 +17,16 @@ const Trip = ({ trip, onClick, onDelete, onSelectSeat, style, isAdmin }) => {
         onDelete();
         setIsPopupOpen(false);
     }
+
+    // const checkImageLink = (imageUrl) => {
+    //     if (imageUrl.includes('express_agency')) {
+    //         return imageUrl;
+    //     } else {
+    //         return `express_agency/${imageUrl}`;
+    //     }
+    // }
+
+    
     return (
         <>
             <CardRow style={style}>

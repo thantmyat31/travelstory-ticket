@@ -11,6 +11,9 @@ const INITIAL_STATE = {
     contactInfo: undefined,
     boughtTicketInfo: undefined,
     completeToken: undefined,
+    cityFrom: undefined,
+    cityTo: undefined,
+    ticket: undefined,
     loading: false,
     error: null
 }
@@ -19,16 +22,19 @@ const ticketReducer = (state = INITIAL_STATE, action) => {
     switch(action.type) {
         case ticketActionTypes.MAKE_PAYMENT_START:
         case ticketActionTypes.CHECK_COMPLETE_TOKEN_START:
+        case ticketActionTypes.FIND_TICKET_START:
             return {
                 ...state,
                 loading: true
             }
 
         case ticketActionTypes.MAKE_PAYMENT_FAILURE: 
+        case ticketActionTypes.FIND_TICKET_FAILURE:
             return {
                 ...state,
                 loading: false,
-                error: action.payload
+                error: action.payload,
+                ticket: undefined
             }
 
         case ticketActionTypes.CHECK_COMPLETE_TOKEN_FAILURE:
@@ -66,11 +72,21 @@ const ticketReducer = (state = INITIAL_STATE, action) => {
                 completeToken: action.payload
             }
 
+        case ticketActionTypes.FIND_TICKET_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                ticket: action.payload,
+                error: null
+            }
+
         case tripActionTypes.SEARCH_TRIPS:
             return {
                 ...state,
                 numberOfTickets: action?.payload?.numberOfSeat,
-                nationality: action?.payload?.nationality
+                nationality: action?.payload?.nationality,
+                cityFrom: action?.payload?.cityFrom,
+                cityTo: action?.payload?.cityTo,
             }
 
         case tripActionTypes.CLEAR_SEARCH_TRIPS:
@@ -82,6 +98,9 @@ const ticketReducer = (state = INITIAL_STATE, action) => {
                 tripId: undefined,
                 contactInfo: undefined,
                 boughtTicketInfo: undefined,
+                cityFrom: undefined,
+                cityTo: undefined,
+                ticket: undefined,
                 loading: false,
                 error: null
             }

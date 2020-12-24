@@ -106,7 +106,7 @@ const LandingPage = ({ history }) => {
                         <div className={styles.card}>
                             <img 
                                 className={styles.image} 
-                                src={`${process.env.REACT_APP_IMAGE}/ads.png`}
+                                src={`${process.env.REACT_APP_IMAGE}/constants/ads.png`}
                                 alt="advertisement" />
                         </div>
                     </div>

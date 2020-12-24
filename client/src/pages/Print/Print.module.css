@@ -1,0 +1,45 @@
+.row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.lf__col {
+    width:calc(40% - 10px);
+}
+
+.rt__col {
+    width:calc(60% - 10px);
+}
+
+
+.card {
+    background-color:#fff;
+    box-shadow: 0 2px 7px 0 #e6e6e6;
+    padding:20px;
+}
+
+.separator {
+    margin-bottom:15px;
+}
+
+.table {
+    width:100%;
+    border-collapse: collapse;
+}
+
+.table tr:nth-of-type(odd) {
+    background-color:#efefef;
+}
+
+.table tr td {
+    padding: 10px;
+    text-transform: capitalize;
+}
+
+.error {
+    text-align: center;
+    color:#ff6600;
+    padding:20px 0;
+}

@@ -55,3 +55,22 @@ export const checkCompleteTokenAction = (token) => {
         })
     }
 }
+
+export const findTicketAction = (data) => {
+    return (dispatch) => {
+        dispatch({ type: ticketActionTypes.FIND_TICKET_START });
+        apiCall({
+            method: 'post',
+            url: `/ticket/find-ticket`,
+            data: data
+        })
+        .then(response => {
+            console.log(response?.data);
+            dispatch({ type: ticketActionTypes.FIND_TICKET_SUCCESS, payload: response?.data });
+        })
+        .catch(error => {
+            console.log(error?.response?.data?.message);
+            dispatch({ type: ticketActionTypes.FIND_TICKET_FAILURE, payload: error?.response?.data?.message });
+        })
+    }
+}

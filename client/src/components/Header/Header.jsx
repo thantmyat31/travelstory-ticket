@@ -34,6 +34,9 @@ const Header = () => {
 					<Link className={styles.link} to="/">
 						Home
 					</Link>
+					<Link className={styles.link} to="/print">
+						Print Your Ticket
+					</Link>
 				</div>
 			</div>
 			{!isAuth ? (
@@ -75,6 +78,9 @@ const Header = () => {
 				<div className={isMenuOpen ? cx(styles.menuOverlay, styles.open) :styles.menuOverlay}>
 					<Link className={styles.link} to="/">
 						Home
+					</Link>
+					<Link className={styles.link} to="/print">
+						Print Your Ticket
 					</Link>
 					{!isAuth ? (
 						<div>

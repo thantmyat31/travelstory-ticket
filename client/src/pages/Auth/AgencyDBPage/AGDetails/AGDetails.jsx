@@ -20,7 +20,7 @@ const AGDetails = ({ history }) => {
     }, [dispatch, error]);
 
     useEffect(() => {
-        dispatch(getOwnAgencyAction({ id: user._id, token }))
+        dispatch(getOwnAgencyAction({ id: user._id, token }));
     }, [dispatch, user, token]);
 
     useEffect(() => {

@@ -5,6 +5,14 @@ exports.buyTicketValidator = [
         .not()
         .isEmpty()
         .withMessage('Trip field should not be empty.'),
+    check('cityFrom')
+        .not()
+        .isEmpty()
+        .withMessage('cityFrom field should not be empty.'),
+    check('cityTo')
+        .not()
+        .isEmpty()
+        .withMessage('cityTo field should not be empty.'),
     check('selectedSeats')
         .not()
         .isEmpty()

@@ -51,6 +51,7 @@ export const createExpressAgencyAction = ({ data, token }) => {
                 }
             })
             .catch(error => {
+                console.log(error?.response?.data?.message);
                 dispatch({ type: agencyActionTypes.CREATE_EXPRESS_AGENCY_FAILURE, payload: 'Failed to upload image' });
             })
         } else {

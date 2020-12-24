@@ -1,7 +1,13 @@
 .label {
     width:100%;
     margin-bottom:15px;
+    display: block;
 }
+
+.label b {
+    color:#ff6600;
+}
+
 .select {
     width:100%;
     line-height: 30px;

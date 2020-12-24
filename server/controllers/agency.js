@@ -25,7 +25,7 @@ exports.createAgency = (req, res) => {
                 message: 'This owner is already created express agency.'
             })
 
-            if(req.body.image === '') req.body.image = 'agency_brand_logo.png';
+            if(req.body.image === '') req.body.image = 'constants/agency_brand_logo.png';
     
             const newExpressAgency = new ExpressAgency(req.body);
 

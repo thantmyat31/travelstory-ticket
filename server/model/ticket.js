@@ -7,6 +7,14 @@ const ticketSchema = Schema({
         ref: 'Trip',
         required: true
     },
+    cityFrom: {
+        type: String,
+        required: true
+    },
+    cityTo: {
+        type: String,
+        required: true
+    },
     selectedSeats: {
         type: Array,
         required: true

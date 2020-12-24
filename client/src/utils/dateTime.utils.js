@@ -46,3 +46,10 @@ export const maxDateForCalendar = () => {
     const maxDate = `${year}-${month}-${day}`;
     return maxDate;
 }
+
+export const getDate = (string) => {
+    const ISOString = moment(string);
+    const date = ISOString.format('DD-MM-YYYY');
+    const time = ISOString.format('HH:mm:ss A');
+    return { date, time };
+}
