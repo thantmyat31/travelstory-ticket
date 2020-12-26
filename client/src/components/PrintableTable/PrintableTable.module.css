@@ -1,0 +1,25 @@
+.table {
+    width:100%;
+    border-collapse: collapse;
+    border:1px solid #efefef;
+    margin-bottom: 20px;
+}
+
+.table tr:nth-of-type(odd) {
+    background-color:#efefef;
+}
+
+.table tr td {
+    padding: 10px;
+    text-transform: capitalize;
+}
+
+@media print {
+    .table {
+        width:60%;
+        margin:auto;
+    }
+    @page { 
+        size:A4 portrait;
+    }
+  }

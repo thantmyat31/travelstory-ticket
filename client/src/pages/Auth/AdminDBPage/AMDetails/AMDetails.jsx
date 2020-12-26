@@ -27,6 +27,9 @@ const AMDetails = () => {
         dispatch(getExchangeRateAction());
         dispatch(getAllCitiesAction());
         dispatch(getAllTripsAction());
+    }, [dispatch]);
+
+    useEffect(() => {
         if(token) {
             dispatch(getAllUsersAction(token));
             dispatch(getAllAgenciesAction(token));
@@ -55,7 +58,7 @@ const AMDetails = () => {
                         <div className={styles.card}>
                             <FaExchangeAlt className={styles.icon} />
                             <h3>$ Exchange Rate</h3>
-                            <span><CountUp start={0} end={exchangeRate?.dollarXR} duration={2} separator="," /></span>
+                            <span>{exchangeRate ? <CountUp start={0} end={exchangeRate?.dollarXR} duration={2} separator="," /> : '-'}</span>
                         </div>
                     </div>
                     <div className={styles.col}>

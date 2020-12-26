@@ -4,6 +4,10 @@ export const getDateTimeString = ({ date, time }) => {
     return moment(`${date} ${time}`).format('LLL');
 }
 
+export const getDateTimeStringFromISO = (ISOString) => {
+    return moment(ISOString).format('LLL');
+}
+
 export const getTime = (time) => {
     return moment(time, 'hh:mm').format('hh:mm A')
 }
@@ -49,7 +53,7 @@ export const maxDateForCalendar = () => {
 
 export const getDate = (string) => {
     const ISOString = moment(string);
-    const date = ISOString.format('DD-MM-YYYY');
-    const time = ISOString.format('HH:mm:ss A');
+    const date = ISOString.format('YYYY-MM-DD');
+    const time = ISOString.format('hh:mm:ss A');
     return { date, time };
 }

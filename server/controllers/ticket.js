@@ -51,7 +51,13 @@ exports.findTicket = (req, res) => {
 	const { cityFrom, cityTo, departDate, phone } = req.body;
 
 	Ticket.findOne({ cityFrom, cityTo, 'contactInfo.phone': phone})
-		.populate('tripId')
+		.populate({
+			path: 'tripId',
+			populate: {
+				path: 'agency',
+				model: 'ExpressAgency'
+			}
+		})
 		.exec((error, ticket) => {
 			if(error || !ticket) return res.status(400).json({
 				message: 'No ticket found with your inserted information.'

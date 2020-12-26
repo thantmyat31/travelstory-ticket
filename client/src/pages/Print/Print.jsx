@@ -1,18 +1,19 @@
 import React, {useState, useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { findTicketAction } from '../../redux/ticket/ticket.action';
+import { errorReset } from './../../redux/user/user.action';
 
 import Layout from '../../components/Layout/Layout';
 import Button from '../../components/Button/Button';
 import Title from './../../components/Title/Title';
 import Input from './../../components/Input/Input';
 import CitiesSelector from './../../components/CitiesSelector/CitiesSelector';
+import PrintableTable from '../../components/PrintableTable/PrintableTable';
 
 import styles from './Print.module.css';
 import cx from 'classnames';
-import { getDate, maxDateForCalendar } from './../../utils/dateTime.utils';
+import { maxDateForCalendar } from './../../utils/dateTime.utils';
 import { ToastContainer, toast } from 'react-toastify';
-import { errorReset } from './../../redux/user/user.action';
 
 const Print = () => {
     const [cityFrom, setCityFrom] = useState('');
@@ -25,7 +26,7 @@ const Print = () => {
 
     useEffect(() => {
         dispatch(errorReset());
-    }, []);
+    }, [dispatch]);
 
     const handleOnSubmit = (event) => {
         event.preventDefault();
@@ -92,50 +93,9 @@ const Print = () => {
                         <div className={styles.card}>
                         {
                             ticket && (
-                                <table className={styles.table}>
-                                    <tbody>
-                                        <tr>
-                                            <td>Customer Name</td>
-                                            <td>{ticket?.contactInfo?.name}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Customer Phone</td>
-                                            <td>{ticket?.contactInfo?.phone}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>From</td>
-                                            <td>{ticket?.cityFrom}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>To</td>
-                                            <td>{ticket?.cityTo}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Sub Total</td>
-                                            <td>{ticket?.price} MMK</td>
-                                        </tr>
-                                        <tr>
-                                            <td>In Dollar</td>
-                                            <td>{ticket?.amount} USD</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Selected Seats</td>
-                                            <td>
-                                            {
-                                                ticket?.selectedSeats?.map((s, index) => index === ticket?.selectedSeats.length - 1? <b key={index}>{s}</b> : <b key={index}>{s}, </b>)
-                                            }
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Buy Date</td>
-                                            <td>{getDate(ticket?.createdAt).date}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Buy Time</td>
-                                            <td>{getDate(ticket?.createdAt).time}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <>    
+                                    <PrintableTable ticket={ticket}  />
+                                </>
                             )
                         }
                         {
