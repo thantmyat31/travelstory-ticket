@@ -4,6 +4,7 @@ import { userActionTypes } from './../user/user.type';
 const INITIAL_STATE = {
     express_agencies: [],
     express_agency: undefined,
+    sold_tickets_by_tripId: [],
     loading: false,
     error: null
 }
@@ -22,6 +23,7 @@ const agencyReducer = (state = INITIAL_STATE, action) => {
         case agencyActionTypes.CREATE_EXPRESS_AGENCY_START:
         case agencyActionTypes.GET_OWN_EXPRESS_AGENCY_START:
         case agencyActionTypes.GET_ALL_EXPRESS_AGENCY_START:
+        case agencyActionTypes.CHECK_SOLD_TICKETS_START:
             return {
                 ...state,
                 loading: true
@@ -29,6 +31,7 @@ const agencyReducer = (state = INITIAL_STATE, action) => {
 
         case agencyActionTypes.CREATE_EXPRESS_AGENCY_FAILURE:
         case agencyActionTypes.GET_ALL_EXPRESS_AGENCY_FAILURE:
+        case agencyActionTypes.CHECK_SOLD_TICKETS_FAILURE:
             return {
                 ...state,
                 loading: false,
@@ -62,6 +65,19 @@ const agencyReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 loading: false,
                 express_agencies: action.payload
+            }
+
+        case agencyActionTypes.CHECK_SOLD_TICKETS_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                sold_tickets_by_tripId: action.payload
+            }
+
+        case agencyActionTypes.RESET_SOLD_TICKETS_IN_AGENCY_PANEL:
+            return {
+                ...state,
+                sold_tickets_by_tripId: []
             }
 
         case userActionTypes.ERROR_RESET:

@@ -18,6 +18,12 @@
     .table {
         width:60%;
         margin:auto;
+        background-image:url('http://localhost:8000/constants/print-bg.png');
+        background-repeat: no-repeat;
+        background-size:cover;
+    }
+    .table tr:nth-of-type(odd) {
+        background-color:initial;
     }
     @page { 
         size:A4 portrait;

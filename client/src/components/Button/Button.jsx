@@ -10,6 +10,8 @@ const Button = ({ title, type, onClick, style, icon, btnColor }) => {
             className={
                 btnColor && btnColor === 'danger' ?
                 cx(styles.button, styles.danger) :
+                btnColor && btnColor === 'light' ?
+                cx(styles.button, styles.light) :
                 styles.button
             }
             onClick={onClick}

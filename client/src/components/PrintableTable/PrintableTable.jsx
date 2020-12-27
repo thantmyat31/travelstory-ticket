@@ -9,9 +9,9 @@ import styles from './PrintableTable.module.css';
 class PrintableTable extends Component {
 
     render () {
-        const { ticket } = this.props;
+        const { ticket, style } = this.props;
         return ( 
-            <>
+            <div style={style}>
                 <table className={styles.table} ref={el => (this.componentRef = el)}>
                     <tbody>
                         <tr>
@@ -74,11 +74,11 @@ class PrintableTable extends Component {
                 </table>
                 <ReactToPrint
                     trigger={() => {
-                        return <Button title="Print Your Ticket" />;
+                        return <Button title="Print Ticket" />;
                     }}
                     content={() => this.componentRef}
                 />
-            </>
+            </div>
         );
     }
 }

@@ -1,22 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTripById } from '../../../../redux/trip/trip.action';
+import { resetSoldTicketsInAgencyPanelAction } from './../../../../redux/agency/agency.action';
+import { checkSoldTicketsAction } from '../../../../redux/agency/agency.action';
+import { updateSeatsAction } from './../../../../redux/trip/trip.action';
 
 import Button from '../../../../components/Button/Button';
 import Title from './../../../../components/Title/Title';
+import PrintableTable from './../../../../components/PrintableTable/PrintableTable';
 
 import styles from './AGSeats.module.css';
 import cx from 'classnames';
 import { filterSeatsAsAlphabat } from './../../../../utils/seats.utils';
 import { BsFillLockFill } from 'react-icons/bs';
-import { updateSeatsAction } from './../../../../redux/trip/trip.action';
 
 const AGSeats = ({ match }) => {
     const tripId = match.params.tripId;
     const { tripById } = useSelector(state => state.trip);
-    const { user } = useSelector(state => state.user);
+    const { user, token } = useSelector(state => state.user);
+    const { sold_tickets_by_tripId } = useSelector(state => state.agency);
+
     const [ selectedSeats, setSelectedSeats ] = useState([]);
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(resetSoldTicketsInAgencyPanelAction());
+    }, [dispatch]);
 
     useEffect(() => {
         if(tripId) dispatch(getTripById(tripId));
@@ -53,6 +62,11 @@ const AGSeats = ({ match }) => {
             dispatch(updateSeatsAction({selectedSeats, tripId }));
             setSelectedSeats([]);
         }
+        else return;
+    }
+
+    const handleOnCheckSoldTickets = () => {
+        if(tripId && token) dispatch(checkSoldTicketsAction({ tripId, token }));
         else return;
     }
     
@@ -116,9 +130,21 @@ const AGSeats = ({ match }) => {
                     </div>
                 </div>
                 <div  className={cx(styles.seats__row, styles.button)}>
-                    <Button title="Update Seats Plan" onClick={handleOnSubmit} />
+                    <Button title="Check Sold Tickets" onClick={handleOnCheckSoldTickets} btnColor="light" style={{ marginTop:'10px' }} />
+                    <Button title="Update Seats Plan" onClick={handleOnSubmit} style={{ marginTop:'10px' }} />
                 </div>
             </div>
+        
+            {sold_tickets_by_tripId.length?
+                <>
+                    <Title title="Sold Tickets" />
+                    <div className={styles.sold__tickets}>
+                    {sold_tickets_by_tripId.map((ticket, index) => (
+                        <PrintableTable key={index} ticket={ticket} style={{ marginBottom:'20px' }} />
+                    ))}
+                    </div>
+                </>
+            : null}
         </div>
      );
 }

@@ -1,4 +1,5 @@
 const ExpressAgency = require("../model/express_agency");
+const Ticket = require("./../model/ticket");
 const upload = require("./../middlewares/imageUpload");
 
 exports.uploadImage = (req, res) => {
@@ -109,5 +110,24 @@ exports.getAllAgencies = (req, res) => {
             });
 
             return res.status(200).json(agencies);
+        })
+}
+
+exports.getSoldTicketsByTripId = (req, res) => {
+    Ticket.find({tripId: req.params.tripId})
+        .populate({
+            path: 'tripId',
+            model: 'Trip',
+            populate: {
+                path: 'agency',
+                model: 'ExpressAgency'
+            }
+        })
+        .exec((error, tickets) => {
+            if(error || !tickets.length) return res.status(400).json({
+                message: 'There was not sold out tickets for this trip.'
+            })
+
+            return res.status(200).json(tickets);
         })
 }

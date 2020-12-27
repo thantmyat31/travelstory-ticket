@@ -97,3 +97,26 @@ export const getAllAgenciesAction = (token) => {
         })
     }
 }
+
+export const checkSoldTicketsAction = ({ tripId, token }) => {
+    return (dispatch) => {
+        dispatch({ type: agencyActionTypes.CHECK_SOLD_TICKETS_START });
+        apiCall({
+            method: 'GET',
+            url: `/agency/ticket/${tripId}`,
+            headers: {
+                'x-auth-token': token
+            }
+        })
+        .then(response => {
+            dispatch({ type: agencyActionTypes.CHECK_SOLD_TICKETS_SUCCESS, payload: response?.data });
+        })
+        .catch(error => {
+            dispatch({ type: agencyActionTypes.CHECK_SOLD_TICKETS_FAILURE, payload: error?.response?.data?.message });
+        })
+    }
+}
+
+export const resetSoldTicketsInAgencyPanelAction = () => ({
+    type: agencyActionTypes.RESET_SOLD_TICKETS_IN_AGENCY_PANEL
+});

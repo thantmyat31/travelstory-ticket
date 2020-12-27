@@ -14,6 +14,12 @@
     border-color: #D0C1BD;
 }
 
+.button.light {
+    background:#efefef;
+    border-color:#efefef;
+    color:#777;
+}
+
 .button:hover {
     box-shadow: 0 1px 5px 0 #999;
 }

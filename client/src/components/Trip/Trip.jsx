@@ -17,15 +17,6 @@ const Trip = ({ trip, onClick, onDelete, onSelectSeat, style, isAdmin }) => {
         onDelete();
         setIsPopupOpen(false);
     }
-
-    // const checkImageLink = (imageUrl) => {
-    //     if (imageUrl.includes('express_agency')) {
-    //         return imageUrl;
-    //     } else {
-    //         return `express_agency/${imageUrl}`;
-    //     }
-    // }
-
     
     return (
         <>
@@ -60,7 +51,7 @@ const Trip = ({ trip, onClick, onDelete, onSelectSeat, style, isAdmin }) => {
                         :(
                             location.pathname === '/auth/agency' ?
                             <>
-                                <Button title="Select Seats" onClick={onClick} style={{ padding:'10px', marginTop: '10px', width: '125px' }} />
+                                <Button title="Details" onClick={onClick} style={{ padding:'10px', marginTop: '10px', width: '125px' }} />
                                 <Button title="Delete Trip" btnColor="danger" onClick={() => setIsPopupOpen(true)} style={{ padding: '10px', marginTop: '10px', width: '125px' }} />
                             </> :
                             <>
