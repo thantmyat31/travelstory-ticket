@@ -6,9 +6,9 @@ import { errorReset } from './../../../../redux/user/user.action';
 import Input from './../../../../components/Input/Input';
 import ImageDropzone from '../../../../components/ImageDropzone/ImageDropzone';
 import Button from '../../../../components/Button/Button';
+
 import styles from './AGNewForm.module.css';
 import cx from 'classnames';
-import colors from './../../../../config/colors';
 import { toast, ToastContainer } from 'react-toastify';
 
 const AGNewForm = () => {
@@ -134,7 +134,7 @@ const AGNewForm = () => {
                                 </div>
                             </div>
                             <div className={styles.group__row}>
-                                <Button onClick={handleOnAddPhone} title="Add Phone" type="button" style={{ padding:"5px 10px", backgroundColor: colors.light, borderColor: colors.light }} />
+                                <Button onClick={handleOnAddPhone} title="Add Phone" type="button" btnColor="light" style={{ padding:"5px 10px" }} />
                             </div>
                         </div>
 
@@ -151,7 +151,7 @@ const AGNewForm = () => {
                                 </div>
                             </div>
                             <div className={styles.group__row}>
-                                <Button onClick={handleOnAddAddress} title="Add Address" type="button" style={{ padding:"5px 10px", backgroundColor: colors.light, borderColor: colors.light }} />
+                                <Button onClick={handleOnAddAddress} title="Add Address" type="button" btnColor="light" style={{ padding:"5px 10px" }} />
                             </div>
                         </div>
                     </div>

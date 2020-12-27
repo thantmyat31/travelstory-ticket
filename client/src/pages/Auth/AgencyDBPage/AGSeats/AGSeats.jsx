@@ -137,7 +137,7 @@ const AGSeats = ({ match }) => {
         
             {sold_tickets_by_tripId.length?
                 <>
-                    <Title title="Sold Tickets" />
+                    <Title title="Sold Tickets" count={sold_tickets_by_tripId.length} />
                     <div className={styles.sold__tickets}>
                     {sold_tickets_by_tripId.map((ticket, index) => (
                         <PrintableTable key={index} ticket={ticket} style={{ marginBottom:'20px' }} />

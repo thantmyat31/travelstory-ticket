@@ -52,7 +52,8 @@ const Trip = ({ trip, onClick, onDelete, onSelectSeat, style, isAdmin }) => {
                             location.pathname === '/auth/agency' ?
                             <>
                                 <Button title="Details" onClick={onClick} style={{ padding:'10px', marginTop: '10px', width: '125px' }} />
-                                <Button title="Delete Trip" btnColor="danger" onClick={() => setIsPopupOpen(true)} style={{ padding: '10px', marginTop: '10px', width: '125px' }} />
+                                <Button title="Delete Trip" btnColor="danger" onClick={() => setIsPopupOpen(true)} style={{ padding: '10px', margin: '10px 0', width: '125px' }} />
+                                <span className={styles.valid__seats}>Valid seats <b>{getValidSeats([trip])}</b></span>
                             </> :
                             <>
                                 <Button title="Select Seats" onClick={onSelectSeat} style={{ padding:'10px', marginTop: '10px', width: '125px' }} />
