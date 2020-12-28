@@ -1,6 +1,6 @@
 {
   "name": "travelstory",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Travel Story website for selling tickets",
   "main": "index.js",
   "engines": {
