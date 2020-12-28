@@ -64,6 +64,21 @@ const SelectSeat = ({ match, history }) => {
         else return;
     }
 
+    const renderSeatsColByAlphabet = (seats) => {
+        return (
+            <div className={styles.seats__col}>
+                {seats?.map((seat, index) => (
+                    <div 
+                        key={index}
+                        className={inArray(seat)} 
+                        onClick={() => selectSeatValidationHandler(seat)}>
+                        {seat.isValid?seat.number:<BsFillLockFill />}
+                    </div>
+                ))}
+            </div>
+        )
+    }
+
     if(!tripById || numberOfTickets === 0) return (
         <Redirect to="/" />
     );
@@ -82,54 +97,10 @@ const SelectSeat = ({ match, history }) => {
                                 </div>
                             </div>
                             <div className={styles.seats__row}>
-                                <div className={styles.seats__col}>
-                                {
-                                    filteredSeats?.seatsA?.map((seat, index) => (
-                                        <div 
-                                            key={index}
-                                            className={inArray(seat)} 
-                                            onClick={() => selectSeatValidationHandler(seat)}>
-                                            {seat.isValid?seat.number:<BsFillLockFill />}
-                                        </div>
-                                    ))
-                                }
-                                </div>
-                                <div className={styles.seats__col}>
-                                {
-                                    filteredSeats?.seatsB?.map((seat, index) => (
-                                        <div 
-                                            key={index}
-                                            className={inArray(seat)} 
-                                            onClick={() => selectSeatValidationHandler(seat)}>
-                                            {seat.isValid?seat.number:<BsFillLockFill />}
-                                        </div>
-                                    ))
-                                }
-                                </div>
-                                <div className={styles.seats__col}>
-                                {
-                                    filteredSeats?.seatsC?.map((seat, index) => (
-                                        <div 
-                                            key={index}
-                                            className={inArray(seat)} 
-                                            onClick={() => selectSeatValidationHandler(seat)}>
-                                            {seat.isValid?seat.number:<BsFillLockFill />}
-                                        </div>
-                                    ))
-                                }
-                                </div>
-                                <div className={styles.seats__col}>
-                                {
-                                    filteredSeats?.seatsD?.map((seat, index) => (
-                                        <div 
-                                            key={index}
-                                            className={inArray(seat)} 
-                                            onClick={() => selectSeatValidationHandler(seat)}>
-                                            {seat.isValid?seat.number:<BsFillLockFill />}
-                                        </div>
-                                    ))
-                                }
-                                </div>
+                                {renderSeatsColByAlphabet(filteredSeats?.seatsA)}
+                                {renderSeatsColByAlphabet(filteredSeats?.seatsB)}
+                                {renderSeatsColByAlphabet(filteredSeats?.seatsC)}
+                                {renderSeatsColByAlphabet(filteredSeats?.seatsD)}
                             </div>
                         </div>
                     </div>

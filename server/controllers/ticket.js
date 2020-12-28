@@ -11,7 +11,7 @@ exports.checkoutPayment = (req, res) => {
 
 	stripe.charges.create(data, (stripeErr, stripeRes) => {
 		if (stripeErr) {
-			res.status(500).json({ message: stripeErr });
+			return res.status(500).json({ message: stripeErr });
 		} else {
 			req.body.amount = req.body.amount / 100;
             const newTicket = new Ticket(req.body);

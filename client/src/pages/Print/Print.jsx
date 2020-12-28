@@ -9,6 +9,7 @@ import Title from './../../components/Title/Title';
 import Input from './../../components/Input/Input';
 import CitiesSelector from './../../components/CitiesSelector/CitiesSelector';
 import PrintableTable from '../../components/PrintableTable/PrintableTable';
+import Loading from './../../components/Loading/Loading';
 
 import styles from './Print.module.css';
 import cx from 'classnames';
@@ -21,7 +22,7 @@ const Print = () => {
     const [departDate, setDepartDate] = useState('');
     const [phone, setPhone] = useState('');
     const maxDate = maxDateForCalendar();
-    const { ticket, error } = useSelector(state => state.ticket);
+    const { ticket, error, loading } = useSelector(state => state.ticket);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -33,6 +34,15 @@ const Print = () => {
         if(cityFrom === '' || cityTo === '' || departDate === '' || phone === '') return toast.error('Please enter all required field with red astris.');
 
         else dispatch(findTicketAction({cityFrom, cityTo, departDate, phone}));
+    }
+
+    const renderPrintable = ({loading, error, ticket}) => {
+        if(loading) {
+            return <Loading />;
+        } else {
+            if(!ticket && error) return  <p className={styles.error}>{error}</p>;
+            if(ticket) return <PrintableTable ticket={ticket}  />;
+        }
     }
 
     return ( 
@@ -91,18 +101,7 @@ const Print = () => {
                     <div className={cx(styles.col, styles.rt__col)}>
                         <Title title="Your Ticket" style={{ textTransform: 'capitalize' }} />
                         <div className={styles.card}>
-                        {
-                            ticket && (
-                                <>    
-                                    <PrintableTable ticket={ticket}  />
-                                </>
-                            )
-                        }
-                        {
-                            !ticket && error && (
-                                <p className={styles.error}>{error}</p>
-                            )
-                        }
+                            {renderPrintable({loading, ticket, error})}
                         </div>
                     </div>
                 </div>

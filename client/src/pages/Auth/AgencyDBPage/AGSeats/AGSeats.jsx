@@ -42,6 +42,21 @@ const AGSeats = ({ match }) => {
         };
     }
 
+    const renderSeatsColByAlphabet = (seats) => {
+        return (
+            <div className={styles.seats__col}>
+                {seats?.map((seat, index) => (
+                    <div 
+                        key={index}
+                        className={inArray(seat)} 
+                        onClick={() => selectSeatValidationHandler(seat)}>
+                        {seat.isValid?seat.number:<BsFillLockFill />}
+                    </div>
+                ))}
+            </div>
+        )
+    }
+
     const handleOnSelectSeat = (seat) => {
         const selected = selectedSeats.find(s => s === seat.number);
         if(!selected) setSelectedSeats([...selectedSeats, seat.number]);
@@ -80,54 +95,10 @@ const AGSeats = ({ match }) => {
                     </div>
                 </div>
                 <div className={styles.seats__row}>
-                    <div className={styles.seats__col}>
-                    {
-                        filteredSeats?.seatsA?.map((seat, index) => (
-                            <div 
-                                key={index}
-                                className={inArray(seat)} 
-                                onClick={() => selectSeatValidationHandler(seat)}>
-                                {seat.isValid?seat.number:<BsFillLockFill />}
-                            </div>
-                        ))
-                    }
-                    </div>
-                    <div className={styles.seats__col}>
-                    {
-                        filteredSeats?.seatsB?.map((seat, index) => (
-                            <div 
-                                key={index}
-                                className={inArray(seat)} 
-                                onClick={() => selectSeatValidationHandler(seat)}>
-                                {seat.isValid?seat.number:<BsFillLockFill />}
-                            </div>
-                        ))
-                    }
-                    </div>
-                    <div className={styles.seats__col}>
-                    {
-                        filteredSeats?.seatsC?.map((seat, index) => (
-                            <div 
-                                key={index}
-                                className={inArray(seat)} 
-                                onClick={() => selectSeatValidationHandler(seat)}>
-                                {seat.isValid?seat.number:<BsFillLockFill />}
-                            </div>
-                        ))
-                    }
-                    </div>
-                    <div className={styles.seats__col}>
-                    {
-                        filteredSeats?.seatsD?.map((seat, index) => (
-                            <div 
-                                key={index}
-                                className={inArray(seat)} 
-                                onClick={() => selectSeatValidationHandler(seat)}>
-                                {seat.isValid?seat.number:<BsFillLockFill />}
-                            </div>
-                        ))
-                    }
-                    </div>
+                    {renderSeatsColByAlphabet(filteredSeats?.seatsA)}
+                    {renderSeatsColByAlphabet(filteredSeats?.seatsB)}
+                    {renderSeatsColByAlphabet(filteredSeats?.seatsC)}
+                    {renderSeatsColByAlphabet(filteredSeats?.seatsD)}
                 </div>
                 <div  className={cx(styles.seats__row, styles.button)}>
                     <Button title="Check Sold Tickets" onClick={handleOnCheckSoldTickets} btnColor="light" style={{ marginTop:'10px' }} />

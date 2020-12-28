@@ -10,7 +10,7 @@ import useDollarXR from './../../hooks/useDollarXR';
  
 const StripeCheckoutButton = ({price, selectedSeats, tripId,...rest}) => {
     const amountInDollar = useDollarXR(price);
-    const priceForStripe = amountInDollar * 100;
+    const priceForStripe = Math.round(amountInDollar * 100);
     const publishableKey = process.env.REACT_APP_STRIPE_KEY;
     const { completeToken, error } = useSelector(state => state.ticket);
     const dispatch = useDispatch();
