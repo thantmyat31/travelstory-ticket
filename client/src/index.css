@@ -37,6 +37,10 @@ img {
   width:100%;
 }
 
+ul, ol, li {
+  list-style:none;
+}
+
 @media screen and (max-width:770px) {
   .app {
     height: calc(100vh - 48.8px);
