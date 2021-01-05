@@ -2,7 +2,6 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 import Title from '../../../../components/Title/Title';
-import CardRow from './../../../../components/CardRow/CardRow';
 import Loading from '../../../../components/Loading/Loading';
 import styles from './SBDetails.module.css';
 

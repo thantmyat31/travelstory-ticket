@@ -50,3 +50,7 @@ cd client && npm install
 ```bash
 cd .. && npm run dev
 ```
+
+### Deploy on Heroku
+
+* [x] Deployed on Heroku. Visit [here](https://travelstory-ticket.herokuapp.com/).
