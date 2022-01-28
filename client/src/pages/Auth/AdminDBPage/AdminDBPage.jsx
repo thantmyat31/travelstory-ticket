@@ -10,6 +10,7 @@ import AMTripsList from './AMTripsList/AMTripsList';
 
 import { BsFillGridFill, BsFillPeopleFill, BsBuilding, BsBriefcaseFill } from 'react-icons/bs';
 import { FaExchangeAlt, FaBus } from 'react-icons/fa';
+import Profile from './../Profile/Profile';
  
 const AdminDBPage = () => {
     const navLinks = [
@@ -27,7 +28,8 @@ const AdminDBPage = () => {
         { path: '/auth/admin/cities', component: AMCities },
         { path: '/auth/admin/exchange', component: AMExchange },
         { path: '/auth/admin/express-agencies', component: AMAgenciesList },
-        { path: '/auth/admin/trips', component: AMTripsList }
+        { path: '/auth/admin/trips', component: AMTripsList },
+        { path: '/auth/admin/profile',  component: Profile}
     ];
 
     return (

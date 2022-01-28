@@ -1,0 +1,15 @@
+.profile .list li,
+.profile .list li span  {
+    display:flex;
+    flex-direction:row;
+    flex-wrap:wrap;
+    align-items:center;
+    padding:10px 0;
+}
+.profile .list li span {
+    min-width:150px;
+    padding:0;
+}
+.profile .list li span b {
+    margin-left:10px;
+}

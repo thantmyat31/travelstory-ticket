@@ -93,7 +93,7 @@ export const getAllAgenciesAction = (token) => {
             dispatch({ type: agencyActionTypes.GET_ALL_EXPRESS_AGENCY_SUCCESS, payload: response?.data });
         })
         .catch(error => {
-            dispatch({ types: agencyActionTypes.GET_ALL_EXPRESS_AGENCY_FAILURE, payload: error?.response?.data?.message });
+            dispatch({ type: agencyActionTypes.GET_ALL_EXPRESS_AGENCY_FAILURE, payload: error?.response?.data?.message });
         })
     }
 }

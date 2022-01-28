@@ -63,11 +63,11 @@ const AMUsersList = () => {
             <Title title="Admin Users" />
             {admins?renderUsers(admins):'loading......'}
 
-            {subscribers.length>0&&<Title title="Subscribed Users" />}
-            {subscribers?renderUsers(subscribers):'loading......'}
-
             {agencies.length>0&&<Title title="Agencies" />}
             {agencies?renderUsers(agencies):'loading......'}
+
+            {subscribers.length>0&&<Title title="Subscribed Users" />}
+            {subscribers?renderUsers(subscribers):'loading......'}
 
             {isPopupOpen ?
                 <Popup title="Change Role">

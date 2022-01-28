@@ -10,9 +10,9 @@
   "scripts": {
     "start": "node index.js",
     "server": "nodemon index.js",
-    "client": "cd client && npm start",
-    "build": "cd client && npm run build",
-    "install-client": "cd client && npm install",
+    "client": "cd ../client && npm start",
+    "build": "cd ../client && npm run build",
+    "install-client": "cd ../client && npm install",
     "heroku-postbuild": "npm run install-client && npm run build",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
@@ -31,6 +31,7 @@
     "mongoose": "^5.10.11",
     "morgan": "^1.10.0",
     "multer": "^1.4.2",
+    "nodemon": "^2.0.15",
     "stripe": "^8.129.0"
   }
 }
