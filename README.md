@@ -56,9 +56,6 @@ cd ..
 cd server && npm run dev
 ```
 
-### Deploy on Heroku
-
-* [x] Deployed on Heroku. Visit [here](https://travelstory-ticket.herokuapp.com/).
 <br><br><br>
 
 # Guide to run with docker
@@ -102,3 +99,15 @@ $ docker exec -it YOUR_MONGO_CONTAINER mongo
 
 - Now, you can play around with the admin account.
 <br><br><br>
+
+
+## Deploy on Heroku
+
+* [x] Deployed on Heroku. Visit [here](https://travelstory-ticket.herokuapp.com/).
+* Test user account
+
+| Role  | Email | Password |
+|:-----:|:----------------:|:------:|
+| Admin | admin@email.com | password |
+| Agency | agency@email.com | password |
+| Subscriber | subscriber@email.com | password |
