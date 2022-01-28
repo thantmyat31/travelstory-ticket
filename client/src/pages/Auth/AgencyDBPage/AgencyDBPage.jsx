@@ -10,6 +10,7 @@ import { FaBus } from 'react-icons/fa';
 import AGSeats from './AGSeats/AGSeats';
 import { useDispatch } from 'react-redux';
 import { getAllTripsAction } from './../../../redux/trip/trip.action';
+import Profile from './../Profile/Profile';
 
 const AgencyDBPage = () => {
     const dispatch = useDispatch();
@@ -28,7 +29,8 @@ const AgencyDBPage = () => {
         { path: '/auth/agency', component: AGDetails },
         { path: '/auth/agency/new', component: AGNewForm },
         { path: '/auth/agency/trip-create', component: AGCreateTrip },
-        { path: '/auth/agency/seats-plan/:tripId', component: AGSeats }
+        { path: '/auth/agency/seats-plan/:tripId', component: AGSeats },
+        { path: '/auth/agency/profile',  component: Profile}
     ]
     
 

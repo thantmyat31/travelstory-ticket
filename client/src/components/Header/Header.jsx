@@ -9,6 +9,7 @@ import cx from 'classnames';
 import {FaPaperPlane} from 'react-icons/fa';
 import {BiMenuAltRight} from 'react-icons/bi';
 import UserAvatar from '../UserAvatar/UserAvatar';
+import { getUserRoleForNavigationPath } from './../../utils/user.utils';
 
 const Header = () => {
 	const [ isMenuOpen, setIsMenuOpen ] = useState(false);
@@ -23,6 +24,7 @@ const Header = () => {
 		event.stopPropagation();
 		setIsMenuOpen(!isMenuOpen);
 	}
+	const userRole = getUserRoleForNavigationPath(user);
 
 	return (
 		<header className={styles.header}>
@@ -66,6 +68,9 @@ const Header = () => {
 									Dashboard
 								</Link>
 							}
+							{user?<Link className={styles.link} to={`/auth/${userRole}/profile`}>
+								Profile
+							</Link>:null}
 							<p className={styles.link} onClick={logout}>
 								Logout
 							</p>
@@ -106,6 +111,9 @@ const Header = () => {
 									Dashboard
 								</Link>
 							}
+							{user?<Link className={styles.link} to={`/auth/${userRole}/profile`}>
+								Profile
+							</Link>:null}
 							<p className={styles.link} onClick={logout}>
 								Logout
 							</p>

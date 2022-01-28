@@ -4,15 +4,16 @@ const cors = require('cors');
 const path = require("path");
 const morgan = require("morgan");
 
+
 require('dotenv').config();
 
-const authRouters = require('./server/routes/auth');
-const userRouters = require('./server/routes/user');
-const agencyRouters = require("./server/routes/agency");
-const cityRouters = require("./server/routes/city");
-const tripRouters = require('./server/routes/trip');
-const ticketRouters = require('./server/routes/ticket');
-const exchangeRouters = require('./server/routes/exchange');
+const authRouters = require('./app/routes/auth');
+const userRouters = require('./app/routes/user');
+const agencyRouters = require("./app/routes/agency");
+const cityRouters = require("./app/routes/city");
+const tripRouters = require('./app/routes/trip');
+const ticketRouters = require('./app/routes/ticket');
+const exchangeRouters = require('./app/routes/exchange');
 
 const mongodbUrl = process.env.MONGODB_URI;
 const app = express();

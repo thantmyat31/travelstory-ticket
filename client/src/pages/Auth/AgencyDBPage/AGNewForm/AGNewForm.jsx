@@ -127,10 +127,10 @@ const AGNewForm = () => {
 
                             <div className={styles.group__row}>
                                 <div className={styles.group__col}>
-                                    <Input type="text" placeholder="Location" onChange={(e) =>  setPhoneLocation(e.target.value)} value={phoneLocation} />
+                                    <Input type="text" placeholder="Eg. Yangon" onChange={(e) =>  setPhoneLocation(e.target.value)} value={phoneLocation} />
                                 </div>
                                 <div className={styles.group__col}>
-                                    <Input type="text" placeholder="Phone" onChange={(e) => setPhoneNumber(e.target.value)} value={phoneNumber} />
+                                    <Input type="text" placeholder="09xxxxxxxxx" onChange={(e) => setPhoneNumber(e.target.value)} value={phoneNumber} />
                                 </div>
                             </div>
                             <div className={styles.group__row}>
@@ -144,10 +144,10 @@ const AGNewForm = () => {
 
                             <div className={styles.group__row}>
                                 <div className={styles.group__col}>
-                                    <Input type="text" placeholder="Location" onChange={(e) =>  setAddressLocation(e.target.value)} value={addressLocation} />
+                                    <Input type="text" placeholder="Eg. Yangon" onChange={(e) =>  setAddressLocation(e.target.value)} value={addressLocation} />
                                 </div>
                                 <div className={styles.group__col}>
-                                    <textarea rows={3} type="text" placeholder="Address" onChange={(e) => setAddressString(e.target.value)} value={addressString} className={styles.textarea} />
+                                    <textarea rows={3} type="text" placeholder="(123), Thukha road, Lathar" onChange={(e) => setAddressString(e.target.value)} value={addressString} className={styles.textarea} />
                                 </div>
                             </div>
                             <div className={styles.group__row}>

@@ -1,4 +1,6 @@
-## Authentication:
+# Development flow
+
+### Authentication:
 
 * [x] Create Server
 * [x] Add auth router
@@ -37,20 +39,66 @@
 
 ### Installation and running local
 
-In root directory:
+- Update both `./client/.env` and `./server/.env` files  with actual data.
+- In root directory:
 
 ```bash
-npm install
+cd server && npm install
 ```
 
 ```bash
+cd ..
 cd client && npm install
 ```
 
 ```bash
-cd .. && npm run dev
+cd .. 
+cd server && npm run dev
 ```
 
 ### Deploy on Heroku
 
 * [x] Deployed on Heroku. Visit [here](https://travelstory-ticket.herokuapp.com/).
+<br><br><br>
+
+# Guide to run with docker
+
+- Clone the repo to local environment.
+- Update both `./client/.env` and `./server/.env` files  with actual data.
+- Open terminal and change directory into downloaded folder (ROOT_DIRECTORY). Same destination as docker-compose.yml file.
+
+```bash
+$ cd ROOT_DIRECTORY
+```
+
+- Then, run the docker command as below.
+
+```bash
+$ docker-compose up -d --build
+```
+
+- After completed to build the docker images/container, open the webpage `http://localhost:3000` in browser.
+- Register with actual email address.
+- Complete the email verification and account activation process.
+- Open mongo shell in docker container
+
+```bash
+# list all running instances. YOUR_MONGO_CONTAINER container should be running.
+$ docker ps -a
+# execute mongo command in the YOUR_MONGO_CONTAINER directly in your shell
+$ docker exec -it YOUR_MONGO_CONTAINER mongo
+```
+
+```bash
+# Find and change the role/permission of your recent account
+> show dbs
+
+> use YOUR_DB_NAME
+
+> db.users.find()
+
+>  db.users.findOneAndUpdate({"displayName": YOUR_USER_NAME}, {$set: {"role": "admin"}})
+```
+
+- Now, you can play around with the admin account.
+<br><br><br>
